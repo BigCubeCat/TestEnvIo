@@ -14,7 +14,7 @@ import {
 let theme = createTheme({
   palette: {
     primary: {
-      main: '#003790',
+      main: '#519839',
     },
     secondary: {
       main: '#fc5055',
