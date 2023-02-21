@@ -1,0 +1,12 @@
+
+.Tag {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 1em;
+  padding: auto;
+  width: min-content;
+}
+
+.TagContent {
+  margin: 1px;
+}
