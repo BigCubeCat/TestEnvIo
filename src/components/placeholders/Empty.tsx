@@ -18,12 +18,12 @@ export default function Empty(props: { text: string }) {
           justifyContent: 'center',
           flexDirection: "column"
         }}>
-        <Typography variant="h5" textAlign="center">{props.text}</Typography>
+        <Typography variant="h4" textAlign="center">{props.text}</Typography>
         <img
           src="/img/empty.png"
-          width="64"
-          height="64"
-          style={{ alignSelf: "center" }}
+          width="128"
+          height="128"
+          style={{ alignSelf: "center", marginTop: 20 }}
         />
       </Box>
     </Box >
