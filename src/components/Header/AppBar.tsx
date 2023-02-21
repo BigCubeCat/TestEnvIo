@@ -1,28 +1,12 @@
 import * as React from 'react';
 import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu, Container, Button, Avatar, Tooltip, MenuItem
+  AppBar, Box, Toolbar, IconButton,
+  Typography, Container, Avatar, Tooltip
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 
-const pages = ['My db', 'All databases'];
-const settings = ['Profile', 'Logout'];
+const TITLE: string = "TestEnv.io";
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const logoutUser = () => {
     //TODO
   };
@@ -48,7 +32,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            TestEnv.io
+            {TITLE}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} />
           <Typography
@@ -67,7 +51,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            TestEnv.io
+            {TITLE}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} /> {/*just spacer*/}
 

@@ -1,22 +1,15 @@
-import { Box } from "@mui/material";
-import CategoryTitle from './CategoryTitle';
-import React from "react";
-import CardList from './CardList'
-import { DBType } from "../../types/DBType";
+import React, { useState } from "react";
+import { Box, Tabs, Tab } from "@mui/material";
+import { pageCategory } from "../../types/page";
+import TabContent from './TabContent';
+import { getData } from "../../utils/dashboard";
 
 export default function DashBoard() {
-  const testCard: DBType = {
-    title: "Super DB",
-    description: "It's main database for testing",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    tags: [
-      { title: "main", color: "#23f59f" },
-      { title: "second", color: "#329009" },
-      { title: "aaa", color: "#ffaabb" },
-      { title: "dev", color: "#11909f" },
-    ]
-  };
+  const [category, setCategory] = useState<pageCategory>("Recent");
+  const handleTabChange = (event: React.SyntheticEvent, newValue: pageCategory) => {
+    setCategory(newValue);
+  }
+
   return (
     <Box
       sx={{
@@ -24,12 +17,20 @@ export default function DashBoard() {
         flexDirection: 'column',
         padding: 10,
       }}>
-      <CategoryTitle title="Recent" />
-      <CardList cards={[testCard, testCard, testCard]} />
-      <CategoryTitle title="My databases" />
-      <CardList cards={[]} />
-      <CategoryTitle title="Public databases" />
-      <CardList cards={[testCard]} />
+      <Tabs
+        value={category}
+        onChange={handleTabChange}
+      >
+        <Tab label="Recent" value="Recent" />
+        <Tab label="My" value="My" />
+        <Tab label="All" value="All" />
+      </Tabs>
+      <Box sx={{ marginTop: "3em" }}>
+        <TabContent
+          title={category}
+          cards={getData(category)}
+        />
+      </Box>
     </Box>
   )
 }
