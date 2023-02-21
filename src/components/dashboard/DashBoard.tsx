@@ -5,12 +5,12 @@ import TabContent from './TabContent';
 import { getData } from "../../utils/dashboard";
 import Search from "../Search/Search";
 import SearchIcon from '@mui/icons-material/Search';
-import { DBListContext } from "../../context/DBListContext";
+import { DBListContext, TDBList } from "../../context/DBListContext";
 
 export default function DashBoard() {
   const [category, setCategory] = useState<pageCategory>("Recent");
 
-  const databases = useContext(DBListContext);
+  const dbContext: TDBList = useContext(DBListContext);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: pageCategory) => {
     setCategory(newValue);
@@ -34,10 +34,10 @@ export default function DashBoard() {
       </Tabs>
       <Box sx={{ marginTop: "2em" }}>
         {(category == "Search") ?
-          <Search allCards={databases} /> :
+          <Search /> :
           <TabContent
             title={category}
-            cards={(category == "All") ? databases : getData(category)}
+            cards={(category == "All") ? dbContext.databases : getData(category)}
           />
         }
       </Box>

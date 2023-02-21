@@ -1,6 +1,4 @@
-export type Tag = {
-  title: string;
-}
+export type Tag = string;
 
 export type DBType = {
   title: string;

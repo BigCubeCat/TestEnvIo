@@ -4,21 +4,14 @@ import { DBType } from '../types/DBType';
 export const testCard: DBType = {
   title: "Super DB",
   description: "It's main database for testing",
-  tags: [
-    { title: "main" },
-    { title: "second" },
-    { title: "aaa" },
-    { title: "dev" },
-  ]
+  tags: ["main", "second", "aaa", "dev"]
 };
 export const testCards: DBType[] = [testCard, {
   title: "usual DB",
   description: "It's usual database for testing",
-  tags: [
-    { title: "default" },
-  ]
+  tags: ["default", "aaa"]
 }, {
-    title: "default", description: "", tags: []
+    title: "default", description: "", tags: ["default"]
   }];
 
 

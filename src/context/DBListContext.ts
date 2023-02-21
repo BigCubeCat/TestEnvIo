@@ -1,12 +1,14 @@
 import * as React from 'react'
-import { DBType } from "../types/DBType";
+import { DBType, Tag } from "../types/DBType";
 
 export type TDBList = {
   databases: DBType[];
+  tags: Tag[];
 }
 
 const defaultValue: TDBList = {
   databases: [],
+  tags: [],
 }
 
 export const DBListContext = React.createContext(defaultValue);

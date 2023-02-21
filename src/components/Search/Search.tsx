@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box, TextField
 } from "@mui/material";
@@ -6,10 +6,13 @@ import TagSelect from "./TagSelect";
 import TabContent from "../dashboard/TabContent";
 import { DBType } from "../../types/DBType";
 import { filterCards } from '../../utils/search';
+import { DBListContext, TDBList } from "../../context/DBListContext";
 
-export default function Search(props: { allCards: DBType[] }) {
+export default function Search() {
   const [tags, setTags] = useState([]);
   const [request, setRequest] = useState("");
+  const dbContext: TDBList = useContext(DBListContext);
+  console.log(dbContext)
   return (
     <>
       <Box sx={{
@@ -28,13 +31,13 @@ export default function Search(props: { allCards: DBType[] }) {
                 setRequest(event.target.value)
             }
           />
-          <TagSelect values={tags} setValue={setTags} />
+          <TagSelect values={tags} setValue={setTags} tags={dbContext.tags} />
         </Box>
       </Box>
       {/*TODO: Улучшить асимптотику*/}
       <TabContent
         title="Search"
-        cards={filterCards(props.allCards, request, tags)}
+        cards={filterCards(dbContext.databases, request, tags)}
       />
     </>
   )
