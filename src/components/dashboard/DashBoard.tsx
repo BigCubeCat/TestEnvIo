@@ -10,7 +10,12 @@ export default function DashBoard() {
     description: "It's main database for testing",
     createdAt: new Date(),
     updatedAt: new Date(),
-    tags: [{ title: "main", color: "#23f59f" }]
+    tags: [
+      { title: "main", color: "#23f59f" },
+      { title: "second", color: "#329009" },
+      { title: "aaa", color: "#ffaabb" },
+      { title: "dev", color: "#11909f" },
+    ]
   };
   return (
     <Box

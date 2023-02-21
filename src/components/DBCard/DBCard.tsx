@@ -16,7 +16,15 @@ export default function DBCard({ card }: { card: DBType }) {
       <Typography variant="body2" sx={{ marginTop: "1em" }}>
         {card.description}
       </Typography>
-      {card.tags.map(tag => <TagComponent content={tag} />)}
+      <Box sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        marginTop: 2,
+        maxWidth: 200,
+        flexDirection: "end"
+      }}>
+        {card.tags.map(tag => <TagComponent content={tag} />)}
+      </Box>
     </Box>
   )
 }

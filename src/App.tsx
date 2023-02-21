@@ -13,7 +13,7 @@ let theme = createTheme({
       main: '#519839',
     },
     secondary: {
-      main: '#fc5055',
+      main: '#2B7365',
     },
   },
 });

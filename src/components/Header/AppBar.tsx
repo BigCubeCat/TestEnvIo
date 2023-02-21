@@ -8,7 +8,6 @@ import {
   Menu, Container, Button, Avatar, Tooltip, MenuItem
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = ['My db', 'All databases'];
 const settings = ['Profile', 'Logout'];
