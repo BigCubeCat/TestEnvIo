@@ -22,7 +22,9 @@ export default function DashBoard() {
       <CategoryTitle title="Recent" />
       <CardList cards={[testCard, testCard, testCard]} />
       <CategoryTitle title="My databases" />
+      <CardList cards={[]} />
       <CategoryTitle title="Public databases" />
+      <CardList cards={[testCard]} />
     </Box>
   )
 }
