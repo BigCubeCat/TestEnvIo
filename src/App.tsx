@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppBar from './components/Header/AppBar';
 import {
@@ -6,6 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 import DashBoard from './components/dashboard/DashBoard';
+import { DBListContext } from './context/DBListContext';
+import { loadAllDB } from './utils/fetchAPI';
 
 let theme = createTheme({
   palette: {
@@ -20,11 +22,22 @@ let theme = createTheme({
 
 
 function App() {
+  const [databases, setDatabases] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const newData = await loadAllDB();
+      setDatabases(newData);
+    }
+    fetchData().catch(console.error);
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <div className="app">
         <AppBar />
-        <DashBoard />
+        <DBListContext.Provider value={databases}>
+          <DashBoard />
+        </DBListContext.Provider>
         <Routes>
           <Route element={<img />}>
             <Route path="/" element={<img />} />

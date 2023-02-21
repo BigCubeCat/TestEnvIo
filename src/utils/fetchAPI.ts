@@ -1,10 +1,10 @@
 import ky from 'ky';
-import { testCard } from './dashboard';
+import { testCards } from './dashboard';
 
 export async function loadAllDB() {
-  return [testCard, testCard, testCard]
+  return testCards;
 }
 
-const json = await ky.post("http://localhost:3000/users", { json: { foo: true } }).json();
+// const json = await ky.post("http://localhost:3000/users", { json: { foo: true } }).json();
 
-console.log(json);
+// console.log(json);
