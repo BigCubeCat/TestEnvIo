@@ -3,7 +3,7 @@ import { Box, Tabs, Tab } from "@mui/material";
 import { pageCategory } from "../../types/page";
 import TabContent from './TabContent';
 import { getData } from "../../utils/dashboard";
-
+import Search from "../Search/Search";
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function DashBoard() {
@@ -30,7 +30,7 @@ export default function DashBoard() {
       </Tabs>
       <Box sx={{ marginTop: "3em" }}>
         {(category == "Search") ?
-          <div /> :
+          <Search /> :
           <TabContent
             title={category}
             cards={getData(category)}
