@@ -28,7 +28,7 @@ export default function DashBoard() {
         <Tab label="All" value="All" />
         <Tab value="Search" icon={<SearchIcon />} />
       </Tabs>
-      <Box sx={{ marginTop: "3em" }}>
+      <Box sx={{ marginTop: "2em" }}>
         {(category == "Search") ?
           <Search /> :
           <TabContent

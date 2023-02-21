@@ -1,7 +1,7 @@
 import { pageCategory } from '../types/page';
 import { DBType } from '../types/DBType';
 
-const testCard: DBType = {
+export const testCard: DBType = {
   title: "Super DB",
   description: "It's main database for testing",
   createdAt: new Date(),
