@@ -14,15 +14,16 @@ const testCard: DBType = {
   ]
 };
 
-
 export function getData(category: pageCategory) {
   switch (category) {
     case "All":
       return [testCard, testCard];
     case "Recent":
       return [testCard];
-    default:
+    case "My":
       return [];
+    default:
+      return []
   }
 }
 
