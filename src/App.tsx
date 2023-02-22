@@ -4,36 +4,18 @@ import { Box } from '@mui/material';
 import AppBar from './components/Header/AppBar';
 import DashBoard from './components/dashboard/DashBoard';
 import { DBListContext } from './context/DBListContext';
-import { loadAllDB } from './utils/fetchAPI';
 import LoginForm from './forms/LoginForm';
 import BgScreen from './components/placeholders/BgScreen';
-
-let theme = createTheme({
-  palette: {
-    primary: {
-      main: '#519839',
-    },
-    secondary: {
-      main: '#2B7365',
-    },
-  },
-});
-
+import { loadDBList } from './utils/main';
+import { theme } from './theme';
 
 function App() {
+  // TODO redux user
   const [user, setUser] = useState(false);
   const [databases, setDatabases] = useState([]);
   const [tags, setTags] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      const newData = await loadAllDB();
-      setDatabases(newData);
-      let set = new Set<string>();
-      //ООООЧень плохо TODO: fix
-      newData.map(card => card.tags.map(tag => set.add(tag)));
-      setTags(Array.from(set));
-    }
-    fetchData().catch(console.error);
+    loadDBList(setDatabases, setTags);
   }, [])
 
   return (
