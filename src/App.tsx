@@ -6,6 +6,7 @@ import DashBoard from './components/dashboard/DashBoard';
 import { DBListContext } from './context/DBListContext';
 import { loadAllDB } from './utils/fetchAPI';
 import LoginForm from './forms/LoginForm';
+import BgScreen from './components/placeholders/BgScreen';
 
 let theme = createTheme({
   palette: {
@@ -34,7 +35,6 @@ function App() {
     }
     fetchData().catch(console.error);
   }, [])
-  console.log("tags=", tags);
 
   return (
     <ThemeProvider theme={theme}>
@@ -45,7 +45,8 @@ function App() {
             <DashBoard />
           </DBListContext.Provider>
         </>
-          : <Box sx={{ display: "flex", justifyContent: 'center', alignItems: "center", height: "80vh" }}>
+          : <Box sx={{ display: "flex", justifyContent: 'center', alignItems: "center", height: "100vh" }}>
+            <BgScreen />
             <LoginForm />
           </Box>
         }
