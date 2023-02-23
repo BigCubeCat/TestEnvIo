@@ -9,8 +9,12 @@ import { API_ADDRESS } from '../../utils/const';
 
 import useUser from './useUser';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/userSlice';
+import { userJsonToModel } from '../../types/UserState';
 
 export default function SignIn() {
+  const dispatch = useDispatch();
   const [cookies, setCookie] = useCookies(['token']);
   const [userForm, setUserForm] = useState<{ username: string, password: string }>({ username: "", password: "" });
   const { loading, loggedOut, user, mutate } = useUser(
@@ -24,8 +28,9 @@ export default function SignIn() {
       { headers: { "Authorization": `Bearer ${token}` } }
     ).then(res => {
       if (res.status == 200) {
-        console.log(res.data);
-        return res.data;
+        dispatch(setUser(
+          userJsonToModel(res.data)
+        ));
       } else {
         console.log(res.status);
       }
@@ -86,7 +91,11 @@ export default function SignIn() {
           id="password"
           autoComplete="current-password"
         />
-        {(userForm.username != "" && loading) && <CircularProgress />}
+        {(userForm.username != "" && loading)
+          && <Box sx={{ display: "flex", justifyContent: 'center', }}>
+            <CircularProgress />
+          </Box>
+        }
         <Button
           type="submit"
           fullWidth

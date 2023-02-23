@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import dbReducer from './dbSlice';
+import userReducer from './userSlice';
 
 export const store = configureStore({
   reducer: {
-    databases: dbReducer,
+    user: userReducer,
   },
 });
 

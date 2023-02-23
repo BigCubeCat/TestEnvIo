@@ -8,10 +8,12 @@ import LoginForm from './components/forms/LoginForm';
 import BgScreen from './components/placeholders/BgScreen';
 import { loadDBList } from './utils/main';
 import { theme } from './theme';
+import { useAppSelector } from './store/hooks';
+import { selectUser } from './store/userSlice';
 
 function App() {
   // TODO redux user
-  const [user, setUser] = useState(false);
+  const user = useAppSelector(selectUser);
   const [databases, setDatabases] = useState([]);
   const [tags, setTags] = useState([]);
   useEffect(() => {
@@ -21,7 +23,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="app">
-        {(user) ? <>
+        {(user.username) ? <>
           <AppBar />
           <DBListContext.Provider value={{ databases, tags }}>
             <DashBoard />
