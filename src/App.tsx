@@ -14,6 +14,9 @@ import { selectUser } from './store/userSlice';
 import Me from "./components/userpage/Me";
 
 import { Link, Route, Redirect } from "wouter";
+import Forbidden from './components/placeholders/Forbidden';
+import AdminPage from './components/managment/AdminPage';
+import ModePage from './components/managment/ModePage';
 
 
 function App() {
@@ -47,11 +50,22 @@ function App() {
           {mainComponent}
         </Route>
         <Route path="/login">
-          {(user.username == "") && <Redirect to="/login" />}
           {loginComponent}
         </Route>
         <Route path="/me">
           <Me />
+        </Route>
+        <Route path="/403">
+          <Forbidden />
+        </Route>
+        <Route path="/admin">
+          <AdminPage />
+        </Route>
+        <Route path="/mode">
+          <ModePage />
+        </Route>
+        <Route path="*">
+          <Redirect to="/" />
         </Route>
       </div>
     </ThemeProvider>
