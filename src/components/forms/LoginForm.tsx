@@ -1,18 +1,35 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import React, { useState } from 'react';
+import {
+  Avatar, Button, TextField, Box, Typography
+} from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+
+import { useCookies } from 'react-cookie';
+import useSWR from "swr";
+
+import { API_ADDRESS } from '../../utils/const';
+import { fetcher } from '../../utils/main';
+import useUser from './useUser';
 
 export default function SignIn() {
+  const [cookies, setCookie] = useCookies(['token']);
+  const [userForm, setUserForm] = useState<{ username: string, password: string }>({ username: "", password: "" });
+  const { loading, loggedOut, user, mutate } = useUser(
+    userForm.username, userForm.password
+  );
+  console.log(loading, loggedOut, user, mutate)
+
+
+  const authUser = (token: string) => {
+    setCookie("token", token, { path: '/' });
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    setUserForm({
+      username: "" + data.get("username") || "",
+      password: "" + data.get("password") || ""
     });
   };
 
@@ -40,10 +57,10 @@ export default function SignIn() {
           margin="normal"
           required
           fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="username"
           autoFocus
         />
         <TextField

@@ -1,5 +1,12 @@
 import { loadAllDB } from '../utils/fetchAPI';
 
+/*
+* fetcher(url)
+* @param{url} api url
+* returns response json
+*/
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export const loadDBList = (setDatabases: Function, setTags: Function) => {
   const fetchData = async () => {
     const newData = await loadAllDB();
