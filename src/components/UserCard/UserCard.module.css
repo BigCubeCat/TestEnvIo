@@ -1,0 +1,11 @@
+.DBCard {
+  border: 1px solid;
+  border-radius: 1em;
+
+  padding: 2em;
+
+  min-width: 150px;
+  margin-right: 3em;
+  margin-bottom: 3em;
+  margin-top: 5em;
+}
