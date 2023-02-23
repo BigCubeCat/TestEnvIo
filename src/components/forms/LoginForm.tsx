@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import {
-  Avatar, Button, TextField, Box, Typography
+  CircularProgress, Avatar, Button, TextField, Box, Typography
 } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import { useCookies } from 'react-cookie';
-import useSWR from "swr";
-
 import { API_ADDRESS } from '../../utils/const';
-import { fetcher } from '../../utils/main';
+
 import useUser from './useUser';
+import axios from 'axios';
 
 export default function SignIn() {
   const [cookies, setCookie] = useCookies(['token']);
@@ -17,11 +16,25 @@ export default function SignIn() {
   const { loading, loggedOut, user, mutate } = useUser(
     userForm.username, userForm.password
   );
-  console.log(loading, loggedOut, user, mutate)
-
 
   const authUser = (token: string) => {
     setCookie("token", token, { path: '/' });
+    axios.get(
+      API_ADDRESS + "/accounts/profile/",
+      { headers: { "Authorization": `Bearer ${token}` } }
+    ).then(res => {
+      if (res.status == 200) {
+        console.log(res.data);
+        return res.data;
+      } else {
+        console.log(res.status);
+      }
+    });
+  }
+
+  if (user && user.access_token) {
+    console.log(user.access_token);
+    authUser(user.access_token);
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -73,6 +86,7 @@ export default function SignIn() {
           id="password"
           autoComplete="current-password"
         />
+        {(userForm.username != "" && loading) && <CircularProgress />}
         <Button
           type="submit"
           fullWidth
