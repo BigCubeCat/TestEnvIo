@@ -1,16 +1,13 @@
 import * as React from 'react';
 import {
   AppBar, Box, Toolbar, IconButton,
-  Typography, Container, Avatar, Tooltip
+  Typography, Container, Avatar, Tooltip, Button
 } from '@mui/material';
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 
 const TITLE: string = "TestEnv.io";
 
 function ResponsiveAppBar() {
-  const logoutUser = () => {
-    //TODO
-  };
 
   return (
     <AppBar position="static">
@@ -21,8 +18,6 @@ function ResponsiveAppBar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -33,7 +28,9 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            {TITLE}
+            <Link href="/" style={{ color: "#fff" }}>
+              {TITLE}
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} />
           <Typography
@@ -58,9 +55,14 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Logout">
+              {/*
               <IconButton onClick={logoutUser} sx={{ p: 0 }}>
                 <Avatar alt="Moderator" src="/static/images/avatar/1.jpg" />
               </IconButton>
+              */}
+              <Button>
+                <Link href="/me" style={{ color: "#fff" }}>profile</Link>
+              </Button>
             </Tooltip>
           </Box>
         </Toolbar>

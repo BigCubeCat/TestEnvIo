@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
+
 import AppBar from './components/Header/AppBar';
 import DashBoard from './components/dashboard/DashBoard';
 import { DBListContext } from './context/DBListContext';
@@ -10,6 +11,7 @@ import { loadDBList } from './utils/main';
 import { theme } from './theme';
 import { useAppSelector } from './store/hooks';
 import { selectUser } from './store/userSlice';
+import Me from "./components/userpage/Me";
 
 import { Link, Route, Redirect } from "wouter";
 
@@ -38,7 +40,6 @@ function App() {
     <BgScreen />
     <LoginForm />
   </Box>
-
   return (
     <ThemeProvider theme={theme}>
       <div className="app">
@@ -50,7 +51,7 @@ function App() {
           {loginComponent}
         </Route>
         <Route path="/me">
-          <div>hi</div>
+          <Me />
         </Route>
       </div>
     </ThemeProvider>

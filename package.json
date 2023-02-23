@@ -21,7 +21,6 @@
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.8.1",
     "styled-components": "^5.3.6",
     "swr": "^2.0.3",
     "wouter": "^2.10.0"
