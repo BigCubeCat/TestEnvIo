@@ -3,6 +3,7 @@ import {
   AppBar, Box, Toolbar, IconButton,
   Typography, Container, Avatar, Tooltip
 } from '@mui/material';
+import { Link } from "react-router-dom";
 
 const TITLE: string = "TestEnv.io";
 
@@ -58,7 +59,6 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Logout">
               <IconButton onClick={logoutUser} sx={{ p: 0 }}>
-                {/*TODO: diff in avatar for different roles*/}
                 <Avatar alt="Moderator" src="/static/images/avatar/1.jpg" />
               </IconButton>
             </Tooltip>

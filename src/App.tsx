@@ -11,6 +11,9 @@ import { theme } from './theme';
 import { useAppSelector } from './store/hooks';
 import { selectUser } from './store/userSlice';
 
+import { Link, Route, Redirect } from "wouter";
+
+
 function App() {
   // TODO redux user
   const user = useAppSelector(selectUser);
@@ -20,20 +23,35 @@ function App() {
     loadDBList(setDatabases, setTags);
   }, [])
 
+  const mainComponent = <>
+    <AppBar />
+    <DBListContext.Provider value={{ databases, tags }}>
+      <DashBoard />
+    </DBListContext.Provider>
+  </>
+
+  const loginComponent = <Box sx={{
+    display: "flex", justifyContent: 'center',
+    alignItems: "center",
+    height: "100vh"
+  }}>
+    <BgScreen />
+    <LoginForm />
+  </Box>
+
   return (
     <ThemeProvider theme={theme}>
       <div className="app">
-        {(user.username) ? <>
-          <AppBar />
-          <DBListContext.Provider value={{ databases, tags }}>
-            <DashBoard />
-          </DBListContext.Provider>
-        </>
-          : <Box sx={{ display: "flex", justifyContent: 'center', alignItems: "center", height: "100vh" }}>
-            <BgScreen />
-            <LoginForm />
-          </Box>
-        }
+        <Route path="/" >
+          {mainComponent}
+        </Route>
+        <Route path="/login">
+          {(user.username == "") && <Redirect to="/login" />}
+          {loginComponent}
+        </Route>
+        <Route path="/me">
+          <div>hi</div>
+        </Route>
       </div>
     </ThemeProvider>
   )

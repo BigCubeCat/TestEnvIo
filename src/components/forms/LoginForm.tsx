@@ -3,6 +3,7 @@ import {
   CircularProgress, Avatar, Button, TextField, Box, Typography
 } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Redirect } from 'wouter';
 
 import { useCookies } from 'react-cookie';
 import { API_ADDRESS } from '../../utils/const';
@@ -10,11 +11,13 @@ import { API_ADDRESS } from '../../utils/const';
 import useUser from './useUser';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../store/userSlice';
+import { selectUser, setUser } from '../../store/userSlice';
 import { userJsonToModel } from '../../types/UserState';
+import { useAppSelector } from '../../store/hooks';
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const userState = useAppSelector(selectUser);
   const [cookies, setCookie] = useCookies(['token']);
   const [userForm, setUserForm] = useState<{ username: string, password: string }>({ username: "", password: "" });
   const { loading, loggedOut, user, mutate } = useUser(
@@ -38,7 +41,6 @@ export default function SignIn() {
   }
 
   if (user && user.access_token) {
-    console.log(user.access_token);
     authUser(user.access_token);
   }
 
@@ -51,6 +53,9 @@ export default function SignIn() {
     });
   };
 
+  if (userState.username != "") {
+    return <Redirect to="/" />
+  }
   return (
     <Box
       sx={{
