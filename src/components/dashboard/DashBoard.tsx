@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Box, Tabs, Tab } from "@mui/material";
+import { Box, Tabs, Tab, CircularProgress } from "@mui/material";
 import { pageCategory } from "../../types/page";
 import TabContent from './TabContent';
 import { getData } from "../../utils/dashboard";
@@ -11,7 +11,7 @@ import { selectUser } from "../../store/userSlice";
 import { Redirect } from "wouter";
 import DbForm from "../forms/DbForm";
 
-export default function DashBoard() {
+export default function DashBoard(props: { loading: boolean }) {
   const userState = useAppSelector(selectUser);
   const [category, setCategory] = useState<pageCategory>("Recent");
 
@@ -22,6 +22,9 @@ export default function DashBoard() {
   }
   if (userState.username == "") {
     return <Redirect to="/login" />
+  }
+  if (props.loading) {
+    return <CircularProgress />
   }
 
   return (

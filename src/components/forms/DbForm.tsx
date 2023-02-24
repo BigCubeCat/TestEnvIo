@@ -7,9 +7,13 @@ import { selectUser } from "../../store/userSlice";
 import { DBListContext, TDBList } from "../../context/DBListContext";
 import { Tag } from "../../types/DBType";
 import TagSelect from "../Search/TagSelect";
+import { CreateFileInfo } from "../../utils/fileinfo";
+import { useCookies } from "react-cookie";
 
 export default function DbForm() {
   const user = useAppSelector(selectUser);
+
+  const [cookies, setCookie] = useCookies(['token']);
 
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
@@ -17,10 +21,9 @@ export default function DbForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const filename = data.get("filename") || "";
-    const title = data.get("title") || "";
-    const description = data.get("description") || "";
-    console.log(filename, title, description);
+    data.append("tag", tags.join(","));
+    CreateFileInfo(cookies.token, data);
+    console.log(data)
   }
 
   const dbContext: TDBList = useContext(DBListContext);
@@ -86,6 +89,17 @@ export default function DbForm() {
 
           <TagSelect values={tags} setValue={setTags} tags={dbContext.tags} />
         </Box>
+        <Button
+          variant="contained"
+          component="label"
+        >
+          Upload File
+          <input
+            type="file"
+            hidden
+          />
+        </Button>
+
         <Button
           type="submit"
           fullWidth

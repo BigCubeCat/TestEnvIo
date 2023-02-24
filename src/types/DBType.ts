@@ -6,3 +6,11 @@ export type DBType = {
   tags: Array<Tag>
 }
 
+export type TDatabaseForm = {
+  title: string;
+  filename: string;
+  description: string;
+  tag: string;
+  is_public: boolean;
+}
+

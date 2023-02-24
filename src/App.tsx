@@ -17,21 +17,22 @@ import { Link, Route, Redirect } from "wouter";
 import Forbidden from './components/placeholders/Forbidden';
 import AdminPage from './components/managment/AdminPage';
 import ModePage from './components/managment/ModePage';
+import useDB from './utils/useDB';
+import { useCookies } from 'react-cookie';
 
 
 function App() {
   // TODO redux user
+  const [cookie, setCookies] = useCookies(["token"]);
   const user = useAppSelector(selectUser);
-  const [databases, setDatabases] = useState([]);
   const [tags, setTags] = useState([]);
-  useEffect(() => {
-    loadDBList(setDatabases, setTags);
-  }, [])
+
+  const { loading, db } = useDB(cookie.token);
 
   const mainComponent = <>
     <AppBar />
-    <DBListContext.Provider value={{ databases, tags }}>
-      <DashBoard />
+    <DBListContext.Provider value={{ databases: db, tags }}>
+      <DashBoard loading={loading} />
     </DBListContext.Provider>
   </>
 

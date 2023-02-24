@@ -2,7 +2,6 @@ import useSWR from "swr";
 import { API_ADDRESS } from '../../utils/const'
 import axios from 'axios';
 
-export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const tokenFetcher = async (api: string, username: string, password: string) => {
   console.log(api, username, password);
@@ -18,7 +17,6 @@ const tokenFetcher = async (api: string, username: string, password: string) => 
 }
 
 export default function useUser(username: string, password: string) {
-  console.log(username, password);
   const { data, mutate, error } = useSWR(
     [API_ADDRESS + "/accounts/token/", username, password],
     ([api, username, password]) => tokenFetcher(api, username, password)

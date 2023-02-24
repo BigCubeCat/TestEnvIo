@@ -1,4 +1,5 @@
 import { loadAllDB } from '../utils/fetchAPI';
+import { GetFileInfos } from './fileinfo';
 
 /*
 * fetcher(url)
@@ -7,9 +8,13 @@ import { loadAllDB } from '../utils/fetchAPI';
 */
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const loadDBList = (setDatabases: Function, setTags: Function) => {
+export const loadDBList = (
+  setDatabases: Function, setTags: Function, token: string
+) => {
   const fetchData = async () => {
-    const newData = await loadAllDB();
+    console.log("Тут");
+    const newData = await GetFileInfos(token);
+    console.log(newData);
     setDatabases(newData);
     let set = new Set<string>();
     //ООООЧень плохо TODO: fix
@@ -18,3 +23,5 @@ export const loadDBList = (setDatabases: Function, setTags: Function) => {
   }
   fetchData().catch(console.error);
 }
+
+

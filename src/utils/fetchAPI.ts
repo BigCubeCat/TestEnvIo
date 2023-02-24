@@ -1,4 +1,5 @@
 import { testCards } from './dashboard';
+import { GetFileInfos } from './fileinfo';
 
 export async function loadAllDB() {
   return testCards;
