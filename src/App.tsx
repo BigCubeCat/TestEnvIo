@@ -7,7 +7,6 @@ import DashBoard from './components/dashboard/DashBoard';
 import { DBListContext } from './context/DBListContext';
 import LoginForm from './components/forms/LoginForm';
 import BgScreen from './components/placeholders/BgScreen';
-import { loadDBList } from './utils/main';
 import { theme } from './theme';
 import { useAppSelector } from './store/hooks';
 import { selectUser } from './store/userSlice';
@@ -24,10 +23,10 @@ import { useCookies } from 'react-cookie';
 function App() {
   // TODO redux user
   const [cookie, setCookies] = useCookies(["token"]);
-  const user = useAppSelector(selectUser);
   const [tags, setTags] = useState([]);
 
   const { loading, db } = useDB(cookie.token);
+  console.log("db = ", db)
 
   const mainComponent = <>
     <AppBar />

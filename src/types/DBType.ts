@@ -14,3 +14,11 @@ export type TDatabaseForm = {
   is_public: boolean;
 }
 
+
+export function TDatabaseFormToDBType(db: TDatabaseForm) {
+  return {
+    title: db.title,
+    description: db.description,
+    tags: db.tag.split(',')
+  }
+}

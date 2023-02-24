@@ -8,6 +8,7 @@ import TagComponent from "./Tag";
 
 
 export default function DBCard({ card }: { card: DBType }) {
+  console.log(card)
   return (
     <Box className={style.DBCard}>
       <Typography variant="h5" component="div">

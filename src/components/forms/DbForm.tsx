@@ -21,9 +21,15 @@ export default function DbForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    data.append("tag", tags.join(","));
-    CreateFileInfo(cookies.token, data);
-    console.log(data)
+    let stringTags = tags.join(',');
+    stringTags = (stringTags.length > 0) ? stringTags : "no";
+    CreateFileInfo(cookies.token, {
+      filename: "" + data.get("filename") || "no",
+      title: "" + data.get("title") || "no",
+      description: "" + data.get("description") || "no",
+      is_public: isPublic,
+      tag: stringTags
+    });
   }
 
   const dbContext: TDBList = useContext(DBListContext);

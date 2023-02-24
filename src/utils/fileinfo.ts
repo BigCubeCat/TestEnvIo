@@ -3,16 +3,13 @@ import { TDatabaseForm } from "../types/DBType";
 import { API_ADDRESS } from "./const";
 
 
-export async function CreateFileInfo(token: string, newDB: FormData) {
-  console.log(newDB)
+export async function CreateFileInfo(token: string, newDB: TDatabaseForm) {
   const { data } = await axios.post(
-    API_ADDRESS + "/file-infos/", newDB,
-    {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
-      }
+    API_ADDRESS + "/file-infos/", newDB, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
     }
+  }
   )
   return data;
 }
