@@ -4,11 +4,12 @@ import { pageCategory } from "../../types/page";
 import TabContent from './TabContent';
 import { getData } from "../../utils/dashboard";
 import Search from "../Search/Search";
-import SearchIcon from '@mui/icons-material/Search';
+import AddIcon from '@mui/icons-material/Add';
 import { DBListContext, TDBList } from "../../context/DBListContext";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/userSlice";
 import { Redirect } from "wouter";
+import DbForm from "../forms/DbForm";
 
 export default function DashBoard() {
   const userState = useAppSelector(selectUser);
@@ -37,11 +38,11 @@ export default function DashBoard() {
         <Tab label="Recent" value="Recent" />
         <Tab label="My" value="My" />
         <Tab label="All" value="All" />
-        <Tab value="Search" icon={<SearchIcon />} />
+        <Tab value="Add" icon={<AddIcon />} />
       </Tabs>
       <Box sx={{ marginTop: "2em" }}>
-        {(category == "Search") ?
-          <Search /> :
+        {(category == "Add") ?
+          <DbForm /> :
           <TabContent
             title={category}
             cards={(category == "All") ? dbContext.databases : getData(category)}

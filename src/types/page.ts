@@ -1,2 +1,2 @@
 import "../utils/fetchAPI";
-export type pageCategory = "Recent" | "All" | "My" | "Search";
+export type pageCategory = "Recent" | "All" | "My" | "Add";

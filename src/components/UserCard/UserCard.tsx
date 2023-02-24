@@ -16,8 +16,14 @@ const UserCard = React.memo((props: { user: TUserState, logout: Function }) => {
         {`@${props.user.username}`}
       </Typography>
       <Box sx={{ marginTop: 5 }}>
-        <BoolParam text="Модератор" checked={props.user.isModerator} />
-        <BoolParam text="Администратор" checked={props.user.isAdmin} />
+        <BoolParam text="Модератор"
+          checked={props.user.isModerator}
+          handleChange={() => { }}
+        />
+        <BoolParam text="Администратор"
+          checked={props.user.isAdmin}
+          handleChange={() => { }}
+        />
       </Box>
       <Button
         variant="contained"
