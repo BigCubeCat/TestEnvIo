@@ -18,11 +18,9 @@ const UserCard = React.memo((props: { user: TUserState, logout: Function }) => {
       <Box sx={{ marginTop: 5 }}>
         <BoolParam text="Модератор"
           checked={props.user.isModerator}
-          handleChange={() => { }}
         />
         <BoolParam text="Администратор"
           checked={props.user.isAdmin}
-          handleChange={() => { }}
         />
       </Box>
       <Button
