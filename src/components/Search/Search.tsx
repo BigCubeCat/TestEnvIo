@@ -12,7 +12,6 @@ export default function Search() {
   const [tags, setTags] = useState([]);
   const [request, setRequest] = useState("");
   const dbContext: TDBList = useContext(DBListContext);
-  console.log(dbContext)
   return (
     <>
       <Box sx={{

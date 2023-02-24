@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
-  Box, Typography, TextField, Checkbox
+  Box, Typography, TextField, Checkbox, Button
 } from "@mui/material";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/userSlice";
-
+import { DBListContext, TDBList } from "../../context/DBListContext";
+import { Tag } from "../../types/DBType";
+import TagSelect from "../Search/TagSelect";
 
 export default function DbForm() {
   const user = useAppSelector(selectUser);
 
   const [isPublic, setIsPublic] = useState(false);
+  const [tags, setTags] = useState<Tag[]>([]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data)
-
+    const filename = data.get("filename") || "";
+    const title = data.get("title") || "";
+    const description = data.get("description") || "";
+    console.log(filename, title, description);
   }
+
+  const dbContext: TDBList = useContext(DBListContext);
 
   return (
     <Box sx={{
@@ -42,7 +49,7 @@ export default function DbForm() {
         <TextField
           margin="normal" required fullWidth
           id="description" label="Description"
-          name="Description" autoComplete="description for new database"
+          name="description" autoComplete="description for new database"
           multiline maxRows={4}
         />
         <Box sx={{
@@ -64,7 +71,29 @@ export default function DbForm() {
             />
           </Box>
         </Box>
+        <Box sx={{
+          display: "flex",
+          justifyContent: 'space-between',
+        }}>
+          <Box sx={{
+            display: "flex", justifyContent: "center",
+            flexDirection: "column", marginTop: 1
+          }}>
+            <Typography variant="h6">
+              Tags
+            </Typography>
+          </Box>
 
+          <TagSelect values={tags} setValue={setTags} tags={dbContext.tags} />
+        </Box>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Create
+        </Button>
 
       </Box>
     </Box>

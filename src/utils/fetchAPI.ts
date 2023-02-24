@@ -1,4 +1,3 @@
-import ky from 'ky';
 import { testCards } from './dashboard';
 
 export async function loadAllDB() {
