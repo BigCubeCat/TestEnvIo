@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import {
-  DBType, TDatabaseform,
+  DBType, TDatabaseForm,
   TDatabaseFormToDBType
 } from "../types/DBType";
 import { API_ADDRESS } from '../utils/const'
@@ -16,10 +16,12 @@ export default function useDB(token: string) {
   const loading = !data && !error;
   const loggedOut = error && error.status === 403;
 
-  const allDB: Array<DBType> = data.map((db: TDatabaseform) =>
-    TDatabaseFormToDBType(db)
-  )
-  console.log(allDB)
+  let allDB: Array<DBType> = [];
+  if (data) {
+    allDB = data.map((db: TDatabaseForm) =>
+      TDatabaseFormToDBType(db)
+    )
+  }
 
   return {
     loading,
