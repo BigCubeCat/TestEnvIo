@@ -3,25 +3,14 @@ import {
   Box, Button, Typography, TextField
 } from "@mui/material";
 import { TUserState } from "../../types/UserState";
-import style from "./UserCard.module.css";
 import BoolParam from "./BoolParam";
 import UserInfo from "./UserInfo";
+import style from "./UserCard.module.css";
 
 export default function UserCard({ user, logout }: { user: TUserState, logout: Function }) {
   return (
-    <Box className={style.DBCard}>
-      <UserInfo
-        firstname={user.firstName} lastname={user.lastName}
-        middlename={user.middleName} username={user.username}
-      />
-      <Box sx={{ marginTop: 5 }}>
-        <BoolParam text="Модератор"
-          checked={user.isModerator}
-        />
-        <BoolParam text="Администратор"
-          checked={user.isAdmin}
-        />
-      </Box>
+    <Box className={style.UserCard}>
+      <UserInfo user={user} />
       <Typography variant="h6" textAlign="center">Смена пароля</Typography>
       <Box component="form" onSubmit={() => { }}>
         <TextField

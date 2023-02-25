@@ -5,6 +5,7 @@ export type TUserState = {
   middleName: string;
   isAdmin: boolean;
   isModerator: boolean;
+  isActive: boolean;
 }
 
 interface userJSON {
@@ -26,7 +27,8 @@ export function userJsonToModel(json: userJSON) {
     middleName: json.middle_name,
     firstName: json.first_name,
     isAdmin: json.is_admin,
-    isModerator: json.is_moderator
+    isModerator: json.is_moderator,
+    isActive: json.is_active
   };
   return model;
 }

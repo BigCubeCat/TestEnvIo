@@ -1,14 +1,17 @@
 import * as React from 'react';
 import {
-  AppBar, Box, Toolbar, IconButton,
+  AppBar, Box, Toolbar, IconButton, Menu, MenuItem,
   Typography, Container, Avatar, Tooltip, Button
 } from '@mui/material';
 import { Link } from "wouter";
+import { useAppSelector } from '../../store/hooks';
+import { selectUser } from '../../store/userSlice';
 
 const TITLE: string = "TestEnv.io";
+const pages = ["new"];
 
-function ResponsiveAppBar() {
-
+export default function Header() {
+  const user = useAppSelector(selectUser);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -32,6 +35,9 @@ function ResponsiveAppBar() {
               {TITLE}
             </Link>
           </Typography>
+          <Link href="/admin" style={{ color: "#fff", marginLeft: 10 }}>
+            Admin dashboard
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} />
           <Typography
             variant="h6"
@@ -70,4 +76,3 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;

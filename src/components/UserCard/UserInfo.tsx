@@ -1,24 +1,36 @@
 import React from "react";
 import {
-  Typography
+  Typography, Box
 } from "@mui/material";
+import BoolParam from "./BoolParam";
 
 interface IUserInfoProps {
   firstname: string;
   lastname: string;
   middlename: string;
-  username: string
+  username: string;
+  isModerator: boolean;
+  isAdmin: boolean;
 }
 
-const UserInfo = React.memo((props: IUserInfoProps) => {
+const UserInfo = React.memo(({ user }: { user: TUserState }) => {
   return (
     <>
       <Typography variant="h5" component="div">
-        {props.firstname + " " + props.lastname + " " + props.middlename}
+        {user.firstName + " " + user.lastName + " " + user.middleName}
       </Typography>
       <Typography variant="body1" textAlign="center" sx={{ marginTop: "1em" }}>
-        {`@${props.username}`}
+        {`@${user.username}`}
       </Typography>
+      <Box sx={{ marginTop: 5 }}>
+        <BoolParam text="Модератор"
+          checked={user.isModerator}
+        />
+        <BoolParam text="Администратор"
+          checked={user.isAdmin}
+        />
+      </Box>
+
     </>
   );
 })
