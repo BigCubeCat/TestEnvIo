@@ -11,7 +11,7 @@ import { GetFileInfos } from "./fileinfo";
 export default function useDB(token: string, category: pageCategory) {
   let request: string[] = [];
   if (category == "My") {
-    request = [API_ADDRESS + "/file-infos/", token];
+    request = [API_ADDRESS + "/file-infos/mine/", token];
   } else {
     request = [API_ADDRESS + "/file-infos/all/", token]
   }
