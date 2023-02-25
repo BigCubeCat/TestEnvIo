@@ -14,9 +14,9 @@ export async function CreateFileInfo(token: string, newDB: TDatabaseForm) {
   return data;
 }
 
-export async function GetFileInfos(token: string) {
+export async function GetFileInfos(url: string, token: string) {
   const { data } = await axios.get(
-    API_ADDRESS + "/file-infos/", {
+    url, {
     headers: {
       "Authorization": `Bearer ${token}`,
     }

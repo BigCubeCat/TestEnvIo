@@ -3,15 +3,23 @@ import {
   DBType, TDatabaseForm,
   TDatabaseFormToDBType
 } from "../types/DBType";
+import { pageCategory } from "../types/page";
 import { API_ADDRESS } from '../utils/const'
 import { GetFileInfos } from "./fileinfo";
 
 
-export default function useDB(token: string) {
-  const { data, mutate, error } = useSWR(
-    [API_ADDRESS + "/file-infos/", token],
-    ([_, t]) => GetFileInfos(t)
+export default function useDB(token: string, category: pageCategory) {
+  let request: string[] = [];
+  if (category == "My") {
+    request = [API_ADDRESS + "/file-infos/", token];
+  } else {
+    request = [API_ADDRESS + "/file-infos/all/", token]
+  }
+  console.log(category);
+  let { data, mutate, error } = useSWR(request,
+    ([url, t]) => GetFileInfos(url, t)
   );
+  console.log("data = ", data)
 
   const loading = !data && !error;
   const loggedOut = error && error.status === 403;
@@ -22,11 +30,16 @@ export default function useDB(token: string) {
       TDatabaseFormToDBType(db)
     )
   }
+  let allTags: Set<string> = new Set();
+  if (allDB.length > 0) {
+    allDB.map(db => db.tags.map(tag => allTags.add(tag)))
+  }
 
   return {
     loading,
     loggedOut,
     db: allDB,
+    allTags: Array.from(allTags),
     mutate
   };
 }

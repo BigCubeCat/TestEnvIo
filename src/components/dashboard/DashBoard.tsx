@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Tabs, Tab, CircularProgress } from "@mui/material";
 import { pageCategory } from "../../types/page";
-import TabContent from './TabContent';
-import { getData } from "../../utils/dashboard";
 import Search from "../Search/Search";
 import AddIcon from '@mui/icons-material/Add';
-import { DBListContext, TDBList } from "../../context/DBListContext";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/userSlice";
 import { Redirect } from "wouter";
 import DbForm from "../forms/DbForm";
+import useDB from "../../utils/useDB";
+import { useCookies } from "react-cookie";
 
-export default function DashBoard(props: { loading: boolean }) {
+export default function DashBoard() {
   const userState = useAppSelector(selectUser);
   const [category, setCategory] = useState<pageCategory>("Recent");
+  const [cookie, setCookies] = useCookies(["token"]);
 
-  const dbContext: TDBList = useContext(DBListContext);
+  const { loading, db, allTags } = useDB(cookie.token, category);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: pageCategory) => {
     setCategory(newValue);
@@ -23,10 +23,18 @@ export default function DashBoard(props: { loading: boolean }) {
   if (userState.username == "") {
     return <Redirect to="/login" />
   }
-  if (props.loading) {
-    return <CircularProgress />
-  }
 
+  let page;
+  switch (category) {
+    case "Add":
+      page = <DbForm allTags={allTags} />
+      break
+    default:
+      page = (loading)
+        ? <Box sx={{ marginTop: 10 }}><CircularProgress /></Box>
+        : <Search databases={db} allTags={allTags} />
+      break;
+  }
   return (
     <Box
       sx={{
@@ -44,13 +52,7 @@ export default function DashBoard(props: { loading: boolean }) {
         <Tab value="Add" icon={<AddIcon />} />
       </Tabs>
       <Box sx={{ marginTop: "2em" }}>
-        {(category == "Add") ?
-          <DbForm /> :
-          <TabContent
-            title={category}
-            cards={(category == "All") ? dbContext.databases : getData(category)}
-          />
-        }
+        {page}
       </Box>
     </Box>
   )

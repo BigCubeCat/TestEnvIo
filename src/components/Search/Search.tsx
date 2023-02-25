@@ -4,14 +4,15 @@ import {
 } from "@mui/material";
 import TagSelect from "./TagSelect";
 import TabContent from "../dashboard/TabContent";
-import { DBType } from "../../types/DBType";
 import { filterCards } from '../../utils/search';
-import { DBListContext, TDBList } from "../../context/DBListContext";
+import { DBType } from "../../types/DBType";
 
-export default function Search() {
+export default function Search({ databases, allTags }: {
+  databases: Array<DBType>,
+  allTags: Array<string>
+}) {
   const [tags, setTags] = useState([]);
   const [request, setRequest] = useState("");
-  const dbContext: TDBList = useContext(DBListContext);
   return (
     <>
       <Box sx={{
@@ -30,13 +31,13 @@ export default function Search() {
                 setRequest(event.target.value)
             }
           />
-          <TagSelect values={tags} setValue={setTags} tags={dbContext.tags} />
+          <TagSelect values={tags} setValue={setTags} tags={allTags} />
         </Box>
       </Box>
       {/*TODO: Улучшить асимптотику*/}
       <TabContent
         title="Search"
-        cards={filterCards(dbContext.databases, request, tags)}
+        cards={filterCards(databases, request, tags)}
       />
     </>
   )

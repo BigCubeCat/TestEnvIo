@@ -1,22 +1,25 @@
 import React, { useContext, useState } from "react";
 import {
-  Box, Typography, TextField, Checkbox, Button
+  Box, Typography, TextField, Checkbox, Button, IconButton
 } from "@mui/material";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/userSlice";
-import { DBListContext, TDBList } from "../../context/DBListContext";
 import { Tag } from "../../types/DBType";
 import TagSelect from "../Search/TagSelect";
 import { CreateFileInfo } from "../../utils/fileinfo";
 import { useCookies } from "react-cookie";
+import AddIcon from '@mui/icons-material/Add';
 
-export default function DbForm() {
+
+export default function DbForm({ allTags }: { allTags: Array<Tag> }) {
   const user = useAppSelector(selectUser);
 
   const [cookies, setCookie] = useCookies(['token']);
 
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
+  const [newTag, setNewTag] = useState<Tag>("");
+  const [currentTags, setCurrentTags] = useState<Tag[]>(allTags);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,8 +34,16 @@ export default function DbForm() {
       tag: stringTags
     });
   }
-
-  const dbContext: TDBList = useContext(DBListContext);
+  const AddTagButton = () => (
+    <IconButton
+      onClick={() => {
+        setCurrentTags([...currentTags, newTag]);
+        setTags([...tags, newTag]);
+      }}
+    >
+      <AddIcon />
+    </IconButton>
+  )
 
   return (
     <Box sx={{
@@ -88,13 +99,23 @@ export default function DbForm() {
             display: "flex", justifyContent: "center",
             flexDirection: "column", marginTop: 1
           }}>
-            <Typography variant="h6">
+            <Typography variant="h6" sx={{ width: "max-content" }}>
               Tags
             </Typography>
           </Box>
-
-          <TagSelect values={tags} setValue={setTags} tags={dbContext.tags} />
+          <TagSelect values={tags} setValue={setTags} tags={currentTags} />
         </Box>
+        <Box sx={{ display: "flex", justifyContent: "end", alignItems: "center" }}>
+          <TextField
+            margin="normal" label="new tag"
+            name="tag" value={newTag}
+            onChange={event => setNewTag(event.target.value)}
+            InputProps={{
+              endAdornment: <AddTagButton />
+            }}
+          />
+        </Box>
+
         <Button
           variant="contained"
           component="label"
