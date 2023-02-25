@@ -12,8 +12,15 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
   const [cookies, setCookies] = useCookies(["token"]);
   const [result, setResult] = useState<string>("");
   return (
-    <Box className={style.UserCard}>
-      <UserInfo user={user} />
+    <Box className={style.UserCard}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between"
+      }}>
+      <Box>
+        <UserInfo user={user} />
+      </Box>
       {(result == "") ?
         <Button fullWidth variant="contained" color="secondary"
           sx={{ marginTop: 3 }}
