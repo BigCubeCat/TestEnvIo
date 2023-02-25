@@ -1,14 +1,13 @@
 import * as React from 'react';
 import {
-  AppBar, Box, Toolbar, IconButton, Menu, MenuItem,
-  Typography, Container, Avatar, Tooltip, Button
+  AppBar, Box, Toolbar,
+  Typography, Container, Tooltip, Button
 } from '@mui/material';
 import { Link } from "wouter";
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/userSlice';
 
 const TITLE: string = "TestEnv.io";
-const pages = ["new"];
 
 export default function Header() {
   const user = useAppSelector(selectUser);
@@ -35,9 +34,11 @@ export default function Header() {
               {TITLE}
             </Link>
           </Typography>
-          <Link href="/admin" style={{ color: "#fff", marginLeft: 10 }}>
-            Admin dashboard
-          </Link>
+          {(user.isAdmin) &&
+            <Link href="/admin" style={{ color: "#fff", marginLeft: 10 }}>
+              Admin dashboard
+            </Link>
+          }
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} />
           <Typography
             variant="h6"
