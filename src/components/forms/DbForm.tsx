@@ -53,7 +53,7 @@ export default function DbForm({ allTags }: { allTags: Array<Tag> }) {
       alignItems: "center",
       marginTop: 3,
     }}>
-      <Typography variant="h6">Create new test database</Typography>
+      <Typography variant="h4">Create new test database</Typography>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
           margin="normal" required fullWidth

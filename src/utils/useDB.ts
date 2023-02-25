@@ -15,11 +15,9 @@ export default function useDB(token: string, category: pageCategory) {
   } else {
     request = [API_ADDRESS + "/file-infos/all/", token]
   }
-  console.log(category);
   let { data, mutate, error } = useSWR(request,
     ([url, t]) => GetFileInfos(url, t)
   );
-  console.log("data = ", data)
 
   const loading = !data && !error;
   const loggedOut = error && error.status === 403;
