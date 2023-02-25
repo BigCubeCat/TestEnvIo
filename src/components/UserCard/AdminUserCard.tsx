@@ -11,7 +11,6 @@ import { useCookies } from "react-cookie";
 export default function AdminUserCard({ user }: { user: TUserState }) {
   const [cookies, setCookies] = useCookies(["token"]);
   const [result, setResult] = useState<string>("");
-  console.log(cookies.token)
   return (
     <Box className={style.UserCard}>
       <UserInfo user={user} />
@@ -28,7 +27,10 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
         >
           Deacivate
         </Button>
-        : <Alert severity="success">{result}</Alert>
+        : <Alert
+          sx={{ marginTop: 3 }}
+          severity="success"
+        >{result}</Alert>
       }
     </Box >
   )

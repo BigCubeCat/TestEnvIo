@@ -1,12 +1,11 @@
-import AppBar from "../Header/AppBar";
 import React from "react";
+import AppBar from "../Header/AppBar";
 import { Redirect } from "wouter";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/userSlice";
 import { Box, CircularProgress } from "@mui/material";
 import useAllUsers from "../../utils/useAllUsers";
 import { useCookies } from "react-cookie";
-import UserInfo from "../UserCard/UserInfo";
 import { userJsonToModel } from "../../types/UserState";
 import AdminUserCard from "../UserCard/AdminUserCard";
 
@@ -22,12 +21,10 @@ export default function AdminPage() {
 
   const { users, loading } = useAllUsers(cookies.token);
 
-  console.log(users)
-
   return (
     <>
       <AppBar />
-      <Box sx={{ display: "flex", justifyContent: "start", flexWrap: "wrap" }}>
+      <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
         {loading ? <CircularProgress /> :
           users.map(u => {
             const userModel = userJsonToModel(u);
