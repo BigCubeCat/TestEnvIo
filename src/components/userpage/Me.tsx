@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Box
+  Box, TextField
 } from "@mui/material";
 import AppBar from '../Header/AppBar';
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -23,7 +23,6 @@ export default function Me() {
       }}>
         <UserCard user={user} logout={() => {
           dispatch(logout());
-          // TODO: modal
         }} />
       </Box>
     </>

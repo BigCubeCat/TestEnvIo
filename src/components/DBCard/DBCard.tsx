@@ -1,22 +1,18 @@
 import React from "react";
 import {
-  Typography, Box
+  Box
 } from '@mui/material';
 import { DBType, Tag } from '../../types/DBType';
 import style from "./DBCard.module.css";
 import TagComponent from "./Tag";
+import DBCardInfo from "./DBCardInfo";
 
 
 export default function DBCard({ card }: { card: DBType }) {
   console.log(card)
   return (
     <Box className={style.DBCard}>
-      <Typography variant="h5" component="div">
-        {card.title}
-      </Typography>
-      <Typography variant="body2" sx={{ marginTop: "1em" }}>
-        {card.description}
-      </Typography>
+      <DBCardInfo title={card.title} description={card.description} />
       <Box sx={{
         display: "flex",
         flexWrap: "wrap",
