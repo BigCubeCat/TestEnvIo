@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  Box, Button, Typography, TextField, Alert, AlertTitle
+  Box, Button, Typography, TextField, Alert, AlertTitle, switchClasses
 } from "@mui/material";
 import { TUserState } from "../../types/UserState";
 import UserInfo from "./UserInfo";
@@ -38,6 +38,19 @@ export default function UserCard({ user, logout }: { user: TUserState, logout: F
     }
   }
 
+  let message = <></>;
+  switch (info.type) {
+    case "error":
+      message = <Alert severity="warning">{info.content}</Alert>
+      break;
+    case "success":
+      message = <Alert severity="success">{info.content}</Alert>
+      break;
+    default:
+      message = <></>
+      break
+  }
+
   return (
     <Box className={style.UserCard}>
       <UserInfo user={user} />
@@ -60,11 +73,7 @@ export default function UserCard({ user, logout }: { user: TUserState, logout: F
           onChange={event => setRepeatPassword(event.target.value)}
           error={repeatPassword != password}
         />
-        {(info) &&
-          <Alert severity={info.type}>
-            {info.content}
-          </Alert>
-        }
+        {message}
         <Button
           type="submit" fullWidth
           variant="contained"
