@@ -35,5 +35,5 @@ export async function GetAllTags(token: string) {
       tag.split(",").map((t: string) => result.add(t))
     })
   }
-  return data.results || [];
+  return Array.from(result);
 }
