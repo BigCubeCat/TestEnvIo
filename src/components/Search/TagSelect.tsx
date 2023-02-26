@@ -18,10 +18,11 @@ export default function TagSelect(props: ITagSelectProps) {
       getOptionLabel={(option) => option}
       sx={{ maxWidth: 400 }}
       onChange={
-        (event: React.SyntheticEvent, value: string[], reason: string) =>
+        (_event: React.SyntheticEvent, value: string[], _: string) =>
           props.setValue(value)
       }
-      renderInput={(params) => <TextField {...params} label="Tag" />
+      renderInput={(params) => <TextField sx={{ width: 200 }}
+        {...params} label="Tag" />
       }
     />
   );
