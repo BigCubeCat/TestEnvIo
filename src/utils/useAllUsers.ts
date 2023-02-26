@@ -21,12 +21,10 @@ export default function useAllUsers(token: string) {
   const loading = !data && !error;
   const loggedOut = error && error.status === 403;
 
-
-
   return {
     loading,
     loggedOut,
-    users: data.map((u: userJSON) => userJsonToModel(u)),
+    users: (data) ? data.map((u: userJSON) => userJsonToModel(u)) : [],
     mutate
   };
 }
