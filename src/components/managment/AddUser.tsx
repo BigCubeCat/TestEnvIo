@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
-  Box, TextField, Button, Typography, Checkbox
+  Box, TextField, Button, Typography, Checkbox, Alert,
+  FormControlLabel
 } from "@mui/material"
 import style from "../UserCard/UserCard.module.css"
 import { createUser } from "../../utils/admin";
@@ -9,32 +10,36 @@ import { TUserState } from "../../types/UserState";
 
 export function AddUser() {
   const [cookies, setCookies] = useCookies(["token"]);
+  const [hasMiddlename, setHasMiddlename] = useState<boolean>(true);
   const [username, setUsername] = useState<string>("");
   const [firstname, setFirstname] = useState<string>("");
   const [middlename, setMiddlename] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
-  const [isModerator, setIsModerator] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
 
   const getNewUser = () => {
     const user: TUserState = {
       username,
       firstName: firstname,
-      middleName: middlename,
+      middleName: (hasMiddlename) ? middlename : "",
       lastName: lastname,
-      isAdmin: false, isActive: true,
-      isModerator: isModerator
+      isAdmin: false, isActive: true, isModerator: false
     }
     return user;
   }
 
+  const clearForm = () => {
+    setUsername("");
+    setFirstname("");
+    setMiddlename("");
+    setLastname("");
+    setPassword("");
+  }
+
   const createNewUser = () => {
     const fetchAPI = async () => {
-      if (await createUser(getNewUser(), cookies.token)) {
-        setUsername("");
-        setFirstname("");
-        setMiddlename("");
-        setLastname("");
-      }
+      const pass = await createUser(getNewUser(), cookies.token)
+      setPassword(pass);
     }
     fetchAPI().catch(console.error)
   }
@@ -51,18 +56,30 @@ export function AddUser() {
       <TextField id="name" label="Имя" sx={{ marginBottom: "1em" }}
         value={firstname} onChange={e => setFirstname(e.target.value)}
       />
-      <TextField id="lastname" label="Отчество" sx={{ marginBottom: "1em" }}
-        value={middlename} onChange={e => setMiddlename(e.target.value)}
-      />
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography variant="h6">Is moderator</Typography>
-        </Box>
-        <Checkbox
-          value={isModerator}
-          onChange={() => setIsModerator(!isModerator)}
+      <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
+        <FormControlLabel
+          value="top"
+          control={<Checkbox value={hasMiddlename} onChange={() => setHasMiddlename(!hasMiddlename)} />}
+          label="Нет отчества"
+          labelPlacement="top"
+        />
+        <TextField
+          id="middlename" disabled={!hasMiddlename}
+          label="Отчество" sx={{ marginBottom: "1em" }}
+          value={middlename} onChange={e => setMiddlename(e.target.value)}
         />
       </Box>
+      {(password.length > 0) && ((password.length > 1) ?
+        <Alert color="success">Пароль: <strong>{password}</strong></Alert> :
+        <Alert color="error"><strong>Неизвестная ошибка</strong></Alert>
+      )}
+      {(password.length > 0) && <Button fullWidth
+        variant="contained"
+        color="info"
+        onClick={() => clearForm()}
+      >clear</Button>
+
+      }
       <Button fullWidth
         variant="contained"
         color={"success"}

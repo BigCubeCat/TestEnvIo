@@ -19,15 +19,19 @@ export async function deactivateUser(username: string, token: string) {
 }
 
 export async function createUser(user: TUserState, token: string) {
+  const password = generatePassword();
   const { data } = await axios.post(
     API_ADDRESS + "/accounts/", {
     username: user.username, first_name: user.firstName,
     last_name: user.lastName, middle_name: user.middleName,
-    password: generatePassword()
+    password
   }, {
     headers: {
       "Authorization": `Bearer ${token}`,
     }
   })
-  return data
+  if (data.username == user.username) {
+    return password
+  }
+  return "0"
 }
