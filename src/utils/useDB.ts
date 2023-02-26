@@ -20,7 +20,6 @@ export default function useDB(token: string, category: pageCategory) {
   );
 
   const loading = !data && !error;
-  const loggedOut = error && error.status === 403;
 
   let allDB: Array<DBType> = [];
   if (data) {
@@ -28,16 +27,10 @@ export default function useDB(token: string, category: pageCategory) {
       TDatabaseFormToDBType(db)
     )
   }
-  let allTags: Set<string> = new Set();
-  if (allDB.length > 0) {
-    allDB.map(db => db.tags.map(tag => allTags.add(tag)))
-  }
 
   return {
     loading,
-    loggedOut,
     db: allDB,
-    allTags: Array.from(allTags),
     mutate
   };
 }

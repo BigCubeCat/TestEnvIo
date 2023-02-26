@@ -9,19 +9,22 @@ import TagSelect from "../Search/TagSelect";
 import { CreateFileInfo } from "../../utils/fileinfo";
 import { useCookies } from "react-cookie";
 import AddIcon from '@mui/icons-material/Add';
+import { selectTags } from "../../store/tagsSlice";
 
 /*
  * Component for create and update Database info
  */
-export default function DbForm({ allTags }: { allTags: Array<Tag> }) {
+export default function DbForm() {
   const user = useAppSelector(selectUser);
+  const allTags = useAppSelector(selectTags);
+  console.log(allTags)
 
   const [cookies, setCookie] = useCookies(['token']);
 
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
   const [newTag, setNewTag] = useState<Tag>("");
-  const [currentTags, setCurrentTags] = useState<Tag[]>(allTags);
+  const [currentTags, setCurrentTags] = useState(allTags);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
