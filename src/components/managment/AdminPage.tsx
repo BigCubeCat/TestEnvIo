@@ -6,7 +6,7 @@ import { selectUser } from "../../store/userSlice";
 import { Box, CircularProgress } from "@mui/material";
 import useAllUsers from "../../utils/useAllUsers";
 import { useCookies } from "react-cookie";
-import { userJsonToModel } from "../../types/UserState";
+import { TUserState } from "../../types/UserState";
 import AdminUserCard from "./AdminUserCard";
 import { AddUser } from "./AddUser";
 
@@ -29,8 +29,7 @@ export default function AdminPage() {
         {loading ? <CircularProgress /> :
           <>
             <AddUser />
-            {users.map(u => {
-              const userModel = userJsonToModel(u);
+            {users.map((userModel: TUserState) => {
               if (userModel.isActive) {
                 return <AdminUserCard user={userModel} />
               }

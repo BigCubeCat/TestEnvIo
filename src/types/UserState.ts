@@ -8,7 +8,7 @@ export type TUserState = {
   isActive: boolean;
 }
 
-interface userJSON {
+export interface userJSON {
   created_at: string;
   updated_at: string;
   username: string;

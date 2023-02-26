@@ -9,6 +9,7 @@ const initialState: TUserState = {
   middleName: "",
   isAdmin: false,
   isModerator: false,
+  isActive: true,
 };
 
 export const userSlice = createSlice({

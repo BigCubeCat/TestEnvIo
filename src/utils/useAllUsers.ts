@@ -1,5 +1,6 @@
 import axios from "axios";
 import useSWR from "swr";
+import { userJsonToModel, userJSON } from "../types/UserState";
 import { API_ADDRESS } from '../utils/const'
 
 const usersFetcher = async (url: string, token: string) => {
@@ -20,10 +21,12 @@ export default function useAllUsers(token: string) {
   const loading = !data && !error;
   const loggedOut = error && error.status === 403;
 
+
+
   return {
     loading,
     loggedOut,
-    users: data,
+    users: data.map((u: userJSON) => userJsonToModel(u)),
     mutate
   };
 }

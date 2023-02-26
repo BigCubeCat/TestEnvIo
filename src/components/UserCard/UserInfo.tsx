@@ -3,15 +3,7 @@ import {
   Typography, Box
 } from "@mui/material";
 import BoolParam from "./BoolParam";
-
-interface IUserInfoProps {
-  firstname: string;
-  lastname: string;
-  middlename: string;
-  username: string;
-  isModerator: boolean;
-  isAdmin: boolean;
-}
+import { TUserState } from "../../types/UserState";
 
 const UserInfo = React.memo(({ user }: { user: TUserState }) => {
   return (
