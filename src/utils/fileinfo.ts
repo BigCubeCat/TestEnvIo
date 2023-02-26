@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TDatabaseForm } from "../types/DBType";
+import { DBType, TDatabaseForm } from "../types/DBType";
 import { API_ADDRESS } from "./const";
 
 export async function CreateFileInfo(token: string, newDB: TDatabaseForm) {
@@ -48,12 +48,15 @@ export async function DeleteFileInfo(id: number, token: string) {
   return status == 204;
 }
 
-export async function EditFileInfo(id: number, token: string) {
-  const { status } = await axios.delete(
+export async function EditFileInfo(id: number, newFile: DBType, token: string) {
+  const { status } = await axios.put(
     API_ADDRESS + `/file-infos/${id}/`, {
+    title: newFile.title, description: newFile.description,
+    tag: newFile.tags.join(',')
+  }, {
     headers: {
       "Authorization": `Bearer ${token}`,
     }
   })
-  return status == 204;
+  return status == 200;
 }

@@ -15,9 +15,7 @@ import { selectTags } from "../../store/tagsSlice";
  */
 export default function DbForm() {
   const allTags = useAppSelector(selectTags);
-  console.log(allTags)
-
-  const [cookies, setCookie] = useCookies(['token']);
+  const [cookies] = useCookies(['token']);
 
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
@@ -30,6 +28,7 @@ export default function DbForm() {
     let stringTags = tags.join(',');
     stringTags = (stringTags.length > 0) ? stringTags : "no";
     CreateFileInfo(cookies.token, {
+      id: 0,
       filename: "" + data.get("filename") || "no",
       title: "" + data.get("title") || "no",
       description: "" + data.get("description") || "no",
@@ -133,6 +132,5 @@ export default function DbForm() {
       </Box>
     </Box>
   )
-
 }
 

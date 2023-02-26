@@ -55,7 +55,6 @@ export default function DashBoard() {
   }, [isFetch])
 
   const { loading, db } = useDB(cookie.token, category);
-  console.log(allTags)
 
   if (userState.username == "") {
     return <Redirect to="/login" />
