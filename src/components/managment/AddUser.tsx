@@ -48,7 +48,7 @@ export function AddUser() {
     <Box className={style.UserCard} sx={{ display: 'flex', flexDirection: "column", justifyContent: "space-between" }}>
       <Typography variant="h5" sx={{ marginBottom: 2 }}>Create user</Typography>
       <TextField id="username_field" label="username" sx={{ marginBottom: "1em" }}
-        value={username} onChange={e => setUsername(e.target.value)}
+        value={username} onChange={e => setUsername(e.target.value.toLowerCase())}
       />
       <TextField id="surname" label="Фамилия" sx={{ marginBottom: "1em" }}
         value={lastname} onChange={e => setLastname(e.target.value)}

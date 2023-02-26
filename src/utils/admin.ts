@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TUserState } from "../types/UserState";
+import { TUserState, userJsonToModel } from "../types/UserState";
 import { API_ADDRESS } from "./const";
 
 const generatePassword = () =>
@@ -9,17 +9,18 @@ export async function updateUser(
   oldUsername: string, user: TUserState, token: string
 ) {
   const { data } = await axios.put(
-    API_ADDRESS + "/accounts/" + oldUsername, {
-    username: user.username, first_name: user.firstName,
+    API_ADDRESS + "/accounts/" + oldUsername + "/", {
+    username: oldUsername, first_name: user.firstName,
     last_name: user.lastName, middle_name: user.middleName,
     is_moderator: user.isModerator, is_active: user.isActive
   },
     {
       headers: {
         "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       }
     });
-  return data
+  return userJsonToModel(data)
 }
 
 export async function createUser(user: TUserState, token: string) {

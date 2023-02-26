@@ -15,13 +15,16 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
   const [cookies, setCookies] = useCookies(["token"]);
   const [editMode, setEditMode] = useState(false);
   const [newUser, setNewUser] = useState<TUserState>(Object.assign({}, user));
+  const [normalUser, setNormalUser] = useState<TUserState>(Object.assign({}, user));
   const [hasMiddlename, setHasMiddlename] = useState(user.middleName != null);
   const toggleEditMode = () => setEditMode(!editMode);
+  console.log(newUser.isActive)
 
   const saveUpdate = () => {
     const fetchAPI = async () => {
       const result = await updateUser(user.username, newUser, cookies.token);
-      console.log(result)
+      setNormalUser(result);
+      toggleEditMode();
     }
     fetchAPI().catch(console.error);
   }
@@ -36,10 +39,9 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
       }}>
       <Box>
         {editMode ? <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: "space-between" }}>
-          <TextField id="username_field" label="username" sx={{ marginBottom: "1em" }}
-            value={newUser.username}
-            onChange={e => setNewUser({ ...newUser, username: e.target.value })}
-          />
+          <Typography variant="h5" textAlign="center" sx={{ marginBottom: 3 }}>
+            @{newUser.username}
+          </Typography>
           <TextField id="surname" label="Фамилия" sx={{ marginBottom: "1em" }}
             value={newUser.lastName}
             onChange={e => setNewUser({ ...newUser, lastName: e.target.value })}
@@ -66,7 +68,7 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant="h6">Модератор</Typography>
             </Box>
-            <Checkbox value={newUser.isModerator}
+            <Checkbox checked={newUser.isModerator}
               onChange={() => setNewUser({ ...newUser, isModerator: !newUser.isModerator })}
             />
           </Box>
@@ -74,12 +76,12 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant="h6">Активный</Typography>
             </Box>
-            <Checkbox value={newUser.isActive}
+            <Checkbox checked={newUser.isActive}
               onChange={() => setNewUser({ ...newUser, isActive: !newUser.isActive })}
             />
           </Box>
         </Box> :
-          <UserInfo user={user} />
+          <UserInfo user={normalUser} />
         }
       </Box>
       {(result != "") && <Alert
