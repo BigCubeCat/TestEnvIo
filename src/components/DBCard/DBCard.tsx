@@ -1,38 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box, Button
 } from '@mui/material';
-import { DBType, Tag } from '../../types/DBType';
+import { DBType } from '../../types/DBType';
 import style from "./DBCard.module.css";
-import TagComponent from "./Tag";
 import DBCardInfo from "./DBCardInfo";
+import TagsList from "./TagsList";
+import DbFormControl from "../forms/DbFormControls";
 
 
-export default function DBCard({ card, editable }: { card: DBType, editable?: boolean }) {
+export default function DBCard({ card }: { card: DBType }) {
+  const [editMode, setEditMode] = useState(false);
   return (
     <Box className={style.DBCard}
       sx={{
-        display: "flex",
-        justifyContent: 'space-between',
-        flexDirection: "column"
-      }}
-    >
-      <DBCardInfo title={card.title} description={card.description} />
-      <Box sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        marginTop: 2,
-        maxWidth: 200,
-        flexDirection: "end"
+        display: "flex", justifyContent: 'space-between', flexDirection: "column",
       }}>
-        {card.tags.map(tag => <TagComponent content={tag} />)}
-      </Box>
+      {(editMode)
+        ? <Box>
+        </Box>
+        : <DBCardInfo title={card.title} description={card.description} />
+      }
+      <TagsList tags={card.tags} />
+      {(editMode) && <DbFormControl id={card.id} />}
       <Button fullWidth variant="contained"
-        color="primary" size="small"
-        sx={{ marginTop: 4 }}
-      >
-        Edit
-      </Button>
+        color="primary" size="small" sx={{ marginTop: 4 }}
+        onClick={() => setEditMode(!editMode)}
+      >{(editMode) ? "Отмена" : "Редактировать"}</Button>
     </Box>
   )
 }

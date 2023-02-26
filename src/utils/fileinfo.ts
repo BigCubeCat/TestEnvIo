@@ -37,3 +37,23 @@ export async function GetAllTags(token: string) {
   }
   return Array.from(result);
 }
+
+export async function DeleteFileInfo(id: number, token: string) {
+  const { status } = await axios.delete(
+    API_ADDRESS + `/file-infos/${id}/`, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  })
+  return status == 204;
+}
+
+export async function EditFileInfo(id: number, token: string) {
+  const { status } = await axios.delete(
+    API_ADDRESS + `/file-infos/${id}/`, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  })
+  return status == 204;
+}

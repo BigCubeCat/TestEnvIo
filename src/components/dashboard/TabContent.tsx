@@ -5,8 +5,8 @@ import Empty from "../placeholders/Empty";
 
 // TODO: переделать editable т к это prop drilling
 
-export default function TabContent({ cards, editable }: {
-  cards: Array<DBType>, editable: boolean
+export default function TabContent({ cards }: {
+  cards: Array<DBType>
 }) {
   return (
     <Box sx={{
@@ -14,7 +14,6 @@ export default function TabContent({ cards, editable }: {
       justifyContent: "start"
     }}>
       {cards.length > 0 ? cards.map(card => <DBCard
-        editable={editable}
         card={card}
       />)
         : <Empty text={"Пока пусто"} />}

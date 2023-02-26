@@ -43,14 +43,11 @@ export default function DashBoard() {
   const [category, setCategory] = useState<pageCategory>("Recent");
   const [cookie, setCookies] = useCookies(["token"]);
 
-  console.log("allTags = ", allTags)
-
   useEffect(() => {
     if (isFetch) return;
     const fetchTags = async () => {
       //dispatch(setTags(
       const result = await GetAllTags(cookie.token);
-      console.log("fuck u = ", result);
       dispatch(setTags(result));
       setIsFetch(true);
     }
@@ -67,7 +64,7 @@ export default function DashBoard() {
   let page;
   switch (category) {
     case "Add":
-      page = <DbForm allTags={allTags} />
+      page = <DbForm />
       break
     default:
       page = (loading)

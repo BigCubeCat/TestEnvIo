@@ -3,7 +3,6 @@ import {
   Box, Typography, TextField, Checkbox, Button, IconButton
 } from "@mui/material";
 import { useAppSelector } from "../../store/hooks";
-import { selectUser } from "../../store/userSlice";
 import { Tag } from "../../types/DBType";
 import TagSelect from "../Search/TagSelect";
 import { CreateFileInfo } from "../../utils/fileinfo";
@@ -15,7 +14,6 @@ import { selectTags } from "../../store/tagsSlice";
  * Component for create and update Database info
  */
 export default function DbForm() {
-  const user = useAppSelector(selectUser);
   const allTags = useAppSelector(selectTags);
   console.log(allTags)
 
@@ -120,28 +118,18 @@ export default function DbForm() {
             }}
           />
         </Box>
-
         <Button
-          variant="contained"
-          component="label"
-          color="info"
+          variant="contained" component="label" color="info"
         >
           Upload File
-          <input
-            type="file"
-            hidden
+          <input type="file" hidden
           />
         </Button>
-
         <Button
           type="submit"
           fullWidth color="success"
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Create
-        </Button>
-
+          variant="contained" sx={{ mt: 3, mb: 2 }}
+        >Create</Button>
       </Box>
     </Box>
   )
