@@ -119,6 +119,7 @@ export default function DbForm({ allTags }: { allTags: Array<Tag> }) {
         <Button
           variant="contained"
           component="label"
+          color="info"
         >
           Upload File
           <input
@@ -129,7 +130,7 @@ export default function DbForm({ allTags }: { allTags: Array<Tag> }) {
 
         <Button
           type="submit"
-          fullWidth
+          fullWidth color="success"
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >

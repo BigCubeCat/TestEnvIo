@@ -22,7 +22,7 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
         <UserInfo user={user} />
       </Box>
       {(result == "") ?
-        <Button fullWidth variant="contained" color="secondary"
+        <Button fullWidth variant="contained" color="error"
           sx={{ marginTop: 3 }}
           onClick={() => {
             const fetchAPI = async () => {

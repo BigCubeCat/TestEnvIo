@@ -7,7 +7,7 @@ export default function TagComponent({ content }: { content: Tag }) {
     <Chip
       sx={{ marginTop: 1, marginLeft: 1, padding: 1 }}
       label={content}
-      color="secondary"
+      color="info"
       variant="outlined"
       clickable
     />

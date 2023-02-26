@@ -65,6 +65,7 @@ export function AddUser() {
       </Box>
       <Button fullWidth
         variant="contained"
+        color={"success"}
         sx={{ marginTop: "1em" }}
         onClick={() => createNewUser()}
       >

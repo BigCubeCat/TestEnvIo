@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {
-  AppBar, Box, Toolbar,
+  AppBar, Box, Toolbar, IconButton,
   Typography, Container, Tooltip, Button
 } from '@mui/material';
 import { Link } from "wouter";
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/userSlice';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const TITLE: string = "TestEnv.io";
 
@@ -16,7 +17,6 @@ export default function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/*TODO: img normal style*/}
-          <img style={{ width: 32, height: 32, marginRight: 28 }} src="/logo.png" />
           <Typography
             variant="h6"
             noWrap
@@ -43,8 +43,6 @@ export default function Header() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -55,22 +53,17 @@ export default function Header() {
               color: 'inherit',
               textDecoration: 'none',
             }}
-          >
-            {TITLE}
+          ><Link href="/" style={{ color: "#fff" }}>
+              {TITLE}
+            </Link>
+
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} /> {/*just spacer*/}
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Logout">
-              {/*
-              <IconButton onClick={logoutUser} sx={{ p: 0 }}>
-                <Avatar alt="Moderator" src="/static/images/avatar/1.jpg" />
-              </IconButton>
-              */}
-              <Button>
-                <Link href="/me" style={{ color: "#fff" }}>profile</Link>
-              </Button>
-            </Tooltip>
+          <Box sx={{ flexGrow: 0, display: "flex", alignItems: 'center', }}>
+            <Link href="/me" style={{ color: "#fff" }}>
+              <AccountCircleIcon fontSize="large" />
+            </Link>
           </Box>
         </Toolbar>
       </Container>

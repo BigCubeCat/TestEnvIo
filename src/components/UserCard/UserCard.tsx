@@ -77,6 +77,7 @@ export default function UserCard({ user, logout }: { user: TUserState, logout: F
         <Button
           type="submit" fullWidth
           variant="contained"
+          color="info"
           sx={{ mt: 3, mb: 2 }}
           onClick={handleSubmit}
         >
@@ -86,7 +87,7 @@ export default function UserCard({ user, logout }: { user: TUserState, logout: F
       <Button
         variant="contained"
         sx={{ width: "100%", marginTop: "1em" }}
-        color="secondary"
+        color="error"
         onClick={() => logout()}
       >
         LOGOUT

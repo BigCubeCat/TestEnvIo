@@ -10,6 +10,29 @@ import DbForm from "../forms/DbForm";
 import useDB from "../../utils/useDB";
 import { useCookies } from "react-cookie";
 
+const TabsComponent = ({ category, setCategory }: {
+  category: pageCategory, setCategory: Function
+}) => {
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: pageCategory) => {
+    setCategory(newValue);
+  }
+  return (
+    <Tabs
+      value={category}
+      onChange={handleTabChange}
+      variant="scrollable"
+      scrollButtons="auto"
+    >
+      <Tab label="Recent" value="Recent" />
+      <Tab label="My" value="My" />
+      <Tab label="All" value="All" />
+      <Tab value="Add" icon={<AddIcon />} />
+    </Tabs>
+
+  )
+}
+
 export default function DashBoard() {
   const userState = useAppSelector(selectUser);
   const [category, setCategory] = useState<pageCategory>("Recent");
@@ -17,9 +40,6 @@ export default function DashBoard() {
 
   const { loading, db, allTags } = useDB(cookie.token, category);
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: pageCategory) => {
-    setCategory(newValue);
-  }
   if (userState.username == "") {
     return <Redirect to="/login" />
   }
@@ -42,15 +62,7 @@ export default function DashBoard() {
         flexDirection: 'column',
         padding: 10,
       }}>
-      <Tabs
-        value={category}
-        onChange={handleTabChange}
-      >
-        <Tab label="Recent" value="Recent" />
-        <Tab label="My" value="My" />
-        <Tab label="All" value="All" />
-        <Tab value="Add" icon={<AddIcon />} />
-      </Tabs>
+      <TabsComponent category={category} setCategory={setCategory} />
       <Box sx={{ marginTop: "2em" }}>
         {page}
       </Box>
