@@ -2,7 +2,7 @@ export type TUserState = {
   username: string;
   firstName: string;
   lastName: string;
-  middleName: string;
+  middleName: string | null;
   isAdmin: boolean;
   isModerator: boolean;
   isActive: boolean;

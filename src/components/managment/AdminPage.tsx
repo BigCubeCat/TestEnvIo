@@ -7,7 +7,7 @@ import { Box, CircularProgress } from "@mui/material";
 import useAllUsers from "../../utils/useAllUsers";
 import { useCookies } from "react-cookie";
 import { userJsonToModel } from "../../types/UserState";
-import AdminUserCard from "../UserCard/AdminUserCard";
+import AdminUserCard from "./AdminUserCard";
 import { AddUser } from "./AddUser";
 
 

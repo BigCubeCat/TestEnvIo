@@ -21,7 +21,7 @@ export function AddUser() {
     const user: TUserState = {
       username,
       firstName: firstname,
-      middleName: (hasMiddlename) ? middlename : "",
+      middleName: (hasMiddlename) ? middlename : null,
       lastName: lastname,
       isAdmin: false, isActive: true, isModerator: false
     }
