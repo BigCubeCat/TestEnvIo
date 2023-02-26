@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   Box, TextField
 } from "@mui/material";
@@ -7,9 +7,10 @@ import TabContent from "../dashboard/TabContent";
 import { filterCards } from '../../utils/search';
 import { DBType } from "../../types/DBType";
 
-export default function Search({ databases, allTags }: {
+export default function Search({ databases, allTags, canEdit }: {
   databases: Array<DBType>,
-  allTags: Array<string>
+  allTags: Array<string>,
+  canEdit: boolean
 }) {
   const [tags, setTags] = useState([]);
   const [request, setRequest] = useState("");
@@ -37,6 +38,7 @@ export default function Search({ databases, allTags }: {
       {/*TODO: Улучшить асимптотику*/}
       <TabContent
         title="Search"
+        editable={canEdit}
         cards={filterCards(databases, request, tags)}
       />
     </>

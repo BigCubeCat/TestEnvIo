@@ -52,7 +52,8 @@ export default function DashBoard() {
     default:
       page = (loading)
         ? <Box sx={{ marginTop: 10 }}><CircularProgress /></Box>
-        : <Search databases={db} allTags={allTags} />
+        : <Search databases={db} allTags={allTags}
+          canEdit={category == "My" || userState.isModerator} />
       break;
   }
   return (

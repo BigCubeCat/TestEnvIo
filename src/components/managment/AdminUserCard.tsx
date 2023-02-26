@@ -53,7 +53,7 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
           <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
             <FormControlLabel
               value="top"
-              control={<Checkbox value={hasMiddlename} onChange={() => setHasMiddlename(!hasMiddlename)} />}
+              control={<Checkbox checked={hasMiddlename} onChange={() => setHasMiddlename(!hasMiddlename)} />}
               label="Нет отчества"
               labelPlacement="top"
             />

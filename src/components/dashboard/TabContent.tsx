@@ -1,11 +1,24 @@
-import CategoryTitle from './CategoryTitle';
-import CardList from './CardList'
-import { DBType } from '../../types/DBType';
+import { Box } from "@mui/material";
+import DBCard from '../DBCard/DBCard';
+import { DBType } from "../../types/DBType";
+import Empty from "../placeholders/Empty";
 
-export default function TabContent(props: { cards: Array<DBType>, title: string }) {
-  return <>
-    {/*<CategoryTitle title={props.title} />*/}
-    <CardList cards={props.cards} />
-  </>
+// TODO: переделать editable т к это prop drilling
+
+export default function TabContent({ cards, editable }: {
+  cards: Array<DBType>, editable: boolean
+}) {
+  return (
+    <Box sx={{
+      display: "flex", flexWrap: "wrap",
+      justifyContent: "start"
+    }}>
+      {cards.length > 0 ? cards.map(card => <DBCard
+        editable={editable}
+        card={card}
+      />)
+        : <Empty text={"Пока пусто"} />}
+    </Box>
+  )
 }
 
