@@ -33,7 +33,11 @@ export default function DBCard({ card, editable }: {
           />
 
         </Box>
-        : <DBCardInfo title={card.title} description={card.description} />
+        : <DBCardInfo
+          title={card.title}
+          description={card.description}
+          author={card.author || "unknown"}
+        />
       }
       <TagsList tags={card.tags} />
       {(editMode) && <DbFormControl id={card.id}
