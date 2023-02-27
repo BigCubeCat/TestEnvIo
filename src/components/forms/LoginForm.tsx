@@ -23,9 +23,7 @@ export default function SignIn() {
   const { loading, loggedOut, user, mutate } = useUser(
     userForm.username, userForm.password
   );
-
-  const authUser = (token: string) => {
-    setCookie("token", token, { path: '/' });
+  const loginUser = (token: string) => {
     axios.get(
       API_ADDRESS + "/accounts/profile/",
       { headers: { "Authorization": `Bearer ${token}` } }
@@ -39,7 +37,14 @@ export default function SignIn() {
       }
     });
   }
+  if (cookies.token) {
+    loginUser(cookies.token);
+  }
 
+  const authUser = (token: string) => {
+    setCookie("token", token, { path: '/' });
+    loginUser(token)
+  }
   if (user && user.access_token) {
     authUser(user.access_token);
   }
