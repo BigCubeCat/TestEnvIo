@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  Box, Typography, TextField, Checkbox, Button, IconButton
+  Box, Typography, TextField, Checkbox, Button, IconButton, InputAdornment
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Tag } from "../../types/DBType";
@@ -70,6 +70,13 @@ export default function DbForm() {
           margin="normal" required fullWidth
           id="filename" label="Filename"
           name="filename" autoComplete="filename"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Typography variant="body2">mysql:</Typography>
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
           margin="normal" required fullWidth
