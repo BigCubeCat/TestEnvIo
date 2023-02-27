@@ -16,11 +16,13 @@ export const dbSlice = createSlice({
       state.dbList.push(action.payload);
     },
     removeDb: (state, action: PayloadAction<number>) => {
-      console.log(state.dbList);
       state.dbList = state.dbList.filter(
         (db: DBType) => db.id != action.payload
       );
-      console.log(state.dbList);
+    },
+    editDb: (state, action: PayloadAction<DBType>) => {
+      state.dbList = state.dbList.map(
+        (db: DBType) => (db.id == action.payload.id) ? action.payload : db)
     },
     empty: (state) => {
       state.dbList = [];
@@ -29,7 +31,7 @@ export const dbSlice = createSlice({
 });
 
 export const {
-  setDbList, empty, removeDb, addDb
+  setDbList, empty, removeDb, addDb, editDb
 } = dbSlice.actions;
 
 export const selectDbList = (state: RootState) => state.dbList.dbList;

@@ -6,7 +6,7 @@ import { DeleteFileInfo, EditFileInfo } from "../../utils/fileinfo";
 import { useCookies } from "react-cookie";
 import { DBType } from "../../types/DBType";
 import { useAppDispatch } from "../../store/hooks";
-import { removeDb } from "../../store/dbSlice";
+import { editDb, removeDb } from "../../store/dbSlice";
 
 export default function DbFormControl(props: {
   id: number, newFile: DBType
@@ -25,12 +25,13 @@ export default function DbFormControl(props: {
     fetchResult().catch(console.error);
   }
 
-  const editDb = () => {
+  const editDbSubmit = () => {
     const fetchResult = async () => {
       const response = await EditFileInfo(props.id, props.newFile, cookies.token);
       setStatus(
         response ? "success" : "error"
       )
+      dispatch(editDb(props.newFile));
     }
     fetchResult().catch(console.error);
   }
@@ -47,7 +48,7 @@ export default function DbFormControl(props: {
           color="error" onClick={() => deleteDb()}>Удалить</Button>
         <Box sx={{ minWidth: "1em" }}></Box>
         <Button fullWidth variant="contained" color="success"
-          onClick={() => editDb()}
+          onClick={() => editDbSubmit()}
         >
           Сохранить
         </Button>
