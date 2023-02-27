@@ -20,7 +20,7 @@ export default function SignIn() {
   const userState = useAppSelector(selectUser);
   const [cookies, setCookie] = useCookies(['token']);
   const [userForm, setUserForm] = useState<{ username: string, password: string }>({ username: "", password: "" });
-  const { loading, loggedOut, user, mutate } = useUser(
+  const { loading, user } = useUser(
     userForm.username, userForm.password
   );
   const loginUser = (token: string) => {
