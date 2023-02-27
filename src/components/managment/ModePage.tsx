@@ -10,6 +10,6 @@ export default function ModePage() {
   if (!user.isModerator) {
     return <Redirect to="/403" />
   }
-  return <div> todo mode</div>
+  return <div>Ты нашел никому не нужную страницу. Возьми пирожок с полки</div>
 
 }
