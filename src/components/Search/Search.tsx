@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Box, TextField
+  Box, TextField, CircularProgress
 } from "@mui/material";
 import TagSelect from "./TagSelect";
 import TabContent from "../dashboard/TabContent";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectTags } from "../../store/tagsSlice";
+import { setDbList } from "../../store/dbSlice";
+import { pageCategory } from "../../types/page";
+import { useCookies } from "react-cookie";
+import useDB from "../../utils/useDB";
 
-export default function Search({ canEdit }: { canEdit: boolean }) {
+export default function Search({ canEdit, category }: {
+  canEdit: boolean, category: pageCategory
+}) {
   const allTags = useAppSelector(selectTags);
+  const dispatch = useAppDispatch();
   const [tags, setTags] = useState([]);
   const [request, setRequest] = useState("");
+  const [cookie] = useCookies(["token"]);
+
+  const { loading, db } = useDB(cookie.token, category);
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      dispatch(setDbList(db));
+    }
+    fetchAPI().catch(console.error);
+  })
+  if (loading) {
+    return <Box sx={{ marginTop: 10 }}><CircularProgress /></Box>
+  }
   return (
     <>
       <Box sx={{

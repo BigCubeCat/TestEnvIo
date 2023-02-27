@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Tabs, Tab, CircularProgress } from "@mui/material";
+import { Box, Tabs, Tab, } from "@mui/material";
 import { pageCategory } from "../../types/page";
 import Search from "../Search/Search";
 import AddIcon from '@mui/icons-material/Add';
@@ -7,11 +7,9 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/userSlice";
 import { Redirect } from "wouter";
 import DbForm from "../forms/DbForm";
-import useDB from "../../utils/useDB";
 import { useCookies } from "react-cookie";
-import { selectTags, setTags } from "../../store/tagsSlice";
+import { setTags } from "../../store/tagsSlice";
 import { GetAllTags } from "../../utils/fileinfo";
-import { setDbList } from "../../store/dbSlice";
 
 const TabsComponent = ({ category, setCategory }: {
   category: pageCategory, setCategory: Function
@@ -38,11 +36,8 @@ export default function DashBoard() {
   const dispatch = useAppDispatch();
   const [isFetch, setIsFetch] = useState(false);
   const userState = useAppSelector(selectUser);
-  const allTags = useAppSelector(selectTags);
   const [category, setCategory] = useState<pageCategory>("Recent");
-  const [cookie, setCookies] = useCookies(["token"]);
-
-  const { loading, db } = useDB(cookie.token, category);
+  const [cookie] = useCookies(["token"]);
 
   // load all tags and all db
   useEffect(() => {
@@ -51,27 +46,15 @@ export default function DashBoard() {
       //dispatch(setTags(
       const tagsList = await GetAllTags(cookie.token);
       dispatch(setTags(tagsList));
-      dispatch(setDbList(db));
       setIsFetch(true);
     }
     fetchTags().catch(console.error);
-  }, [isFetch, db])
+  }, [isFetch])
 
   if (userState.username == "") {
     return <Redirect to="/login" />
   }
 
-  let page;
-  switch (category) {
-    case "Add":
-      page = <DbForm />
-      break
-    default:
-      page = (loading)
-        ? <Box sx={{ marginTop: 10 }}><CircularProgress /></Box>
-        : <Search canEdit={category == "My" || userState.isModerator} />
-      break;
-  }
   return (
     <Box
       sx={{
@@ -81,7 +64,11 @@ export default function DashBoard() {
       }}>
       <TabsComponent category={category} setCategory={setCategory} />
       <Box sx={{ marginTop: "2em" }}>
-        {page}
+        {(category == "Add") ? <DbForm /> :
+          <Search category={category}
+            canEdit={category == "My" || userState.isModerator}
+          />
+        }
       </Box>
     </Box>
   )
