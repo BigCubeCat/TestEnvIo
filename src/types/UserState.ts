@@ -13,7 +13,7 @@ export interface userJSON {
   updated_at: string;
   username: string;
   first_name: string;
-  middle_name: string;
+  middle_name: string | null;
   last_name: string;
   is_active: boolean;
   is_admin: boolean;

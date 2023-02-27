@@ -9,7 +9,7 @@ const UserInfo = React.memo(({ user }: { user: TUserState }) => {
   return (
     <>
       <Typography variant="h5" component="div">
-        {user.firstName + " " + user.lastName + " " + user.middleName}
+        {user.firstName + " " + user.lastName + " " + (user.middleName || "")}
       </Typography>
       <Typography variant="body1" textAlign="center" sx={{ marginTop: "1em" }}>
         {`@${user.username}`}

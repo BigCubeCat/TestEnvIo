@@ -12,11 +12,11 @@ import UserInfo from "../UserCard/UserInfo";
 
 
 export default function AdminUserCard({ user }: { user: TUserState }) {
-  const [cookies, setCookies] = useCookies(["token"]);
+  const [cookies] = useCookies(["token"]);
   const [editMode, setEditMode] = useState(false);
   const [newUser, setNewUser] = useState<TUserState>(Object.assign({}, user));
   const [normalUser, setNormalUser] = useState<TUserState>(Object.assign({}, user));
-  const [hasMiddlename, setHasMiddlename] = useState(user.middleName != null);
+  const [hasMiddlename, setHasMiddlename] = useState<boolean>(user.middleName != null);
   const toggleEditMode = () => setEditMode(!editMode);
   console.log(newUser.isActive)
 
@@ -29,7 +29,6 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
     fetchAPI().catch(console.error);
   }
 
-  const [result, setResult] = useState<string>("");
   return (
     <Box className={style.UserCard}
       sx={{
@@ -53,7 +52,7 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
           <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
             <FormControlLabel
               value="top"
-              control={<Checkbox checked={hasMiddlename} onChange={() => setHasMiddlename(!hasMiddlename)} />}
+              control={<Checkbox checked={!hasMiddlename} onChange={() => setHasMiddlename(!hasMiddlename)} />}
               label="Нет отчества"
               labelPlacement="top"
             />
@@ -84,11 +83,6 @@ export default function AdminUserCard({ user }: { user: TUserState }) {
           <UserInfo user={normalUser} />
         }
       </Box>
-      {(result != "") && <Alert
-        sx={{ marginTop: 3 }}
-        severity="success"
-      >{result}</Alert>
-      }
       {(editMode) ? <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 5 }}>
         <Button variant="contained" color="error" onClick={() => toggleEditMode()}>Отмена</Button>
         <Button variant="contained" color="success" onClick={() => saveUpdate()}>Изменить</Button>
