@@ -5,10 +5,13 @@ import {
 import { DeleteFileInfo, EditFileInfo } from "../../utils/fileinfo";
 import { useCookies } from "react-cookie";
 import { DBType } from "../../types/DBType";
+import { useAppDispatch } from "../../store/hooks";
+import { removeDb } from "../../store/dbSlice";
 
 export default function DbFormControl(props: {
   id: number, newFile: DBType
 }) {
+  const dispatch = useAppDispatch();
   const [cookies] = useCookies(["token"]);
   const [status, setStatus] = useState<string>("");
 
@@ -17,6 +20,7 @@ export default function DbFormControl(props: {
       setStatus((await DeleteFileInfo(props.id, cookies.token))
         ? "success" : "error"
       )
+      dispatch(removeDb(props.id));
     }
     fetchResult().catch(console.error);
   }

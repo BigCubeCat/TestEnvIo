@@ -4,14 +4,11 @@ import {
 } from "@mui/material";
 import TagSelect from "./TagSelect";
 import TabContent from "../dashboard/TabContent";
-import { filterCards } from '../../utils/search';
-import { DBType } from "../../types/DBType";
+import { useAppSelector } from "../../store/hooks";
+import { selectTags } from "../../store/tagsSlice";
 
-export default function Search({ databases, allTags, canEdit }: {
-  databases: Array<DBType>,
-  allTags: Array<string>,
-  canEdit: boolean
-}) {
+export default function Search() {
+  const allTags = useAppSelector(selectTags);
   const [tags, setTags] = useState([]);
   const [request, setRequest] = useState("");
   return (
@@ -35,12 +32,7 @@ export default function Search({ databases, allTags, canEdit }: {
           <TagSelect values={tags} setValue={setTags} tags={allTags} />
         </Box>
       </Box>
-      {/*TODO: Улучшить асимптотику*/}
-      <TabContent
-        title="Search"
-        editable={canEdit}
-        cards={filterCards(databases, request, tags)}
-      />
+      <TabContent request={request} tags={tags} />
     </>
   )
 }

@@ -11,6 +11,7 @@ import useDB from "../../utils/useDB";
 import { useCookies } from "react-cookie";
 import { selectTags, setTags } from "../../store/tagsSlice";
 import { GetAllTags } from "../../utils/fileinfo";
+import { setDbList } from "../../store/dbSlice";
 
 const TabsComponent = ({ category, setCategory }: {
   category: pageCategory, setCategory: Function
@@ -31,7 +32,6 @@ const TabsComponent = ({ category, setCategory }: {
       <Tab label="All" value="All" />
       <Tab value="Add" icon={<AddIcon />} />
     </Tabs>
-
   )
 }
 
@@ -43,18 +43,20 @@ export default function DashBoard() {
   const [category, setCategory] = useState<pageCategory>("Recent");
   const [cookie, setCookies] = useCookies(["token"]);
 
+  const { loading, db } = useDB(cookie.token, category);
+
+  // load all tags and all db
   useEffect(() => {
     if (isFetch) return;
     const fetchTags = async () => {
       //dispatch(setTags(
-      const result = await GetAllTags(cookie.token);
-      dispatch(setTags(result));
+      const tagsList = await GetAllTags(cookie.token);
+      dispatch(setTags(tagsList));
+      dispatch(setDbList(db));
       setIsFetch(true);
     }
     fetchTags().catch(console.error);
-  }, [isFetch])
-
-  const { loading, db } = useDB(cookie.token, category);
+  }, [isFetch, db])
 
   if (userState.username == "") {
     return <Redirect to="/login" />
