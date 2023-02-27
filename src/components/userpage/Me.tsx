@@ -8,6 +8,7 @@ import { logout, selectUser, setUser } from "../../store/userSlice";
 import { Redirect } from "wouter";
 import UserCard from "../UserCard/UserCard";
 import { useCookies } from "react-cookie";
+import { empty as emptyDbList } from "../../store/dbSlice";
 
 export default function Me() {
   const user = useAppSelector(selectUser);
@@ -17,6 +18,7 @@ export default function Me() {
   const logoutFunction = () => {
     setCookie("token", "", { path: '/' });
     dispatch(logout());
+    dispatch(emptyDbList());
   }
   if (user.username == "") {
     return <Redirect to="/login" />

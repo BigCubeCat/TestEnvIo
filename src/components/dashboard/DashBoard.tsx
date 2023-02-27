@@ -27,7 +27,6 @@ const TabsComponent = ({ category, setCategory }: {
       variant="scrollable"
       scrollButtons="auto"
     >
-      <Tab label="Recent" value="Recent" />
       <Tab label="My" value="My" />
       <Tab label="All" value="All" />
       <Tab value="Add" icon={<AddIcon />} />
@@ -70,8 +69,7 @@ export default function DashBoard() {
     default:
       page = (loading)
         ? <Box sx={{ marginTop: 10 }}><CircularProgress /></Box>
-        : <Search databases={db} allTags={allTags}
-          canEdit={category == "My" || userState.isModerator} />
+        : <Search canEdit={category == "My" || userState.isModerator} />
       break;
   }
   return (

@@ -7,8 +7,8 @@ import { filterCards } from "../../utils/search";
 
 // TODO: переделать editable т к это prop drilling
 
-export default function TabContent({ request, tags }: {
-  request: string, tags: string[]
+export default function TabContent({ request, tags, editable }: {
+  request: string, tags: string[], editable: boolean
 }) {
   const dbList = useAppSelector(selectDbList);
   const cards = filterCards(dbList, request, tags);
@@ -18,7 +18,7 @@ export default function TabContent({ request, tags }: {
       justifyContent: "start"
     }}>
       {cards.length > 0 ? cards.map(card => <DBCard
-        card={card}
+        card={card} editable={editable}
       />)
         : <Empty text={"Пока пусто"} />}
     </Box>

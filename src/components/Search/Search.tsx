@@ -7,7 +7,7 @@ import TabContent from "../dashboard/TabContent";
 import { useAppSelector } from "../../store/hooks";
 import { selectTags } from "../../store/tagsSlice";
 
-export default function Search() {
+export default function Search({ canEdit }: { canEdit: boolean }) {
   const allTags = useAppSelector(selectTags);
   const [tags, setTags] = useState([]);
   const [request, setRequest] = useState("");
@@ -32,7 +32,7 @@ export default function Search() {
           <TagSelect values={tags} setValue={setTags} tags={allTags} />
         </Box>
       </Box>
-      <TabContent request={request} tags={tags} />
+      <TabContent request={request} tags={tags} editable={canEdit} />
     </>
   )
 }

@@ -9,7 +9,9 @@ import TagsList from "./TagsList";
 import DbFormControl from "../forms/DbFormControls";
 
 
-export default function DBCard({ card }: { card: DBType }) {
+export default function DBCard({ card, editable }: {
+  editable: boolean, card: DBType
+}) {
   const [editMode, setEditMode] = useState(false);
 
   const [newTitle, setNewTitle] = useState(card.title);
@@ -40,10 +42,12 @@ export default function DBCard({ card }: { card: DBType }) {
           tags: card.tags, id: card.id
         }}
       />}
-      <Button fullWidth variant="contained"
-        color="primary" size="small" sx={{ marginTop: 4 }}
-        onClick={() => setEditMode(!editMode)}
-      >{(editMode) ? "Отмена" : "Редактировать"}</Button>
+      {(editable) &&
+        <Button fullWidth variant="contained"
+          color="primary" size="small" sx={{ marginTop: 4 }}
+          onClick={() => setEditMode(!editMode)}
+        >{(editMode) ? "Отмена" : "Редактировать"}</Button>
+      }
     </Box>
   )
 }
