@@ -9,6 +9,7 @@ export async function CreateFileInfo(token: string, newDB: TDatabaseForm) {
       "Authorization": `Bearer ${token}`,
     }
   })
+
   return data;
 }
 

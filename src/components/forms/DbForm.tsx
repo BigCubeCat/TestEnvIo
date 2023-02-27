@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import {
   Box, Typography, TextField, Checkbox, Button, IconButton
 } from "@mui/material";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Tag } from "../../types/DBType";
 import TagSelect from "../Search/TagSelect";
 import { CreateFileInfo } from "../../utils/fileinfo";
 import { useCookies } from "react-cookie";
 import AddIcon from '@mui/icons-material/Add';
 import { selectTags } from "../../store/tagsSlice";
+import { addDb } from "../../store/dbSlice";
 
 /*
  * Component for create and update Database info
  */
 export default function DbForm() {
+  const dispatch = useAppDispatch();
   const allTags = useAppSelector(selectTags);
   const [cookies] = useCookies(['token']);
 
@@ -27,14 +29,15 @@ export default function DbForm() {
     const data = new FormData(event.currentTarget);
     let stringTags = tags.join(',');
     stringTags = (stringTags.length > 0) ? stringTags : "no";
-    CreateFileInfo(cookies.token, {
+    const newDb = {
       id: 0,
       filename: "" + data.get("filename") || "no",
       title: "" + data.get("title") || "no",
       description: "" + data.get("description") || "no",
       is_public: isPublic,
       tag: stringTags
-    });
+    }
+    CreateFileInfo(cookies.token, newDb);
   }
   const AddTagButton = () => (
     <IconButton
