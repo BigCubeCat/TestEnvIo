@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  Box, Button, TextField
+  Box, Button, TextField, IconButton
 } from '@mui/material';
 import { DBType } from '../../types/DBType';
 import style from "./DBCard.module.css";
@@ -10,6 +10,8 @@ import DbFormControl from "../forms/DbFormControls";
 import TagSelect from "../Search/TagSelect";
 import { useAppSelector } from "../../store/hooks";
 import { selectTags } from "../../store/tagsSlice";
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 export default function DBCard({ card, editable }: {
@@ -27,9 +29,19 @@ export default function DBCard({ card, editable }: {
     <Box className={style.DBCard}
       sx={{
         display: "flex", justifyContent: 'space-between', flexDirection: "column",
+        position: "relative"
       }}>
+      {(editable) &&
+        <IconButton size="small" sx={{ position: "absolute", top: 10, right: 10 }}
+          onClick={() => setEditMode(!editMode)}
+        >
+          {editMode ? <CloseIcon /> : <EditIcon />}
+
+        </IconButton>
+      }
+
       {(editMode)
-        ? <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column" }}> <TextField fullWidth value={newTitle} label="Название" autoFocus
+        ? <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", marginTop: 1 }}> <TextField fullWidth value={newTitle} label="Название" autoFocus
           required onChange={e => setNewTitle(e.target.value)}
         />
           <TextField fullWidth value={newDescription} label="Описание"
@@ -54,12 +66,6 @@ export default function DBCard({ card, editable }: {
           tags: tags, id: card.id
         }}
       />}
-      {(editable) &&
-        <Button fullWidth variant="contained"
-          color="primary" size="small" sx={{ marginTop: 4 }}
-          onClick={() => setEditMode(!editMode)}
-        >{(editMode) ? "Назад" : "Редактировать"}</Button>
-      }
     </Box>
   )
 }
