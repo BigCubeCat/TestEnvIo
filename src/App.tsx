@@ -13,6 +13,7 @@ import { Route, Redirect } from "wouter";
 import Forbidden from './components/placeholders/Forbidden';
 import AdminPage from './components/managment/AdminPage';
 import ModePage from './components/managment/ModePage';
+import Preview from './components/DBCard/Preview';
 
 const loginComponent = <Box sx={{
   display: "flex", justifyContent: 'center',
@@ -43,8 +44,8 @@ function App() {
         <Route path="/admin">
           <AdminPage />
         </Route>
-        <Route path="/mode">
-          <ModePage />
+        <Route path="/preview">
+          <Preview />
         </Route>
         <Route path="*">
           <Redirect to="/" />

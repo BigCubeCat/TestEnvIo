@@ -8,22 +8,35 @@ import DBCardInfo from "./DBCardInfo";
 import TagsList from "./TagsList";
 import DbFormControl from "../forms/DbFormControls";
 import TagSelect from "../Search/TagSelect";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectTags } from "../../store/tagsSlice";
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
+import Preview from "./Preview";
+import { setCurrent } from "../../store/dbSlice";
+import { Redirect } from "wouter";
 
 
 export default function DBCard({ card, editable }: {
   editable: boolean, card: DBType
 }) {
+  const dispatch = useAppDispatch();
   const [editMode, setEditMode] = useState(false);
   const [tags, setTags] = useState<string[]>(card.tags);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const [newTitle, setNewTitle] = useState(card.title);
   const [newDescription, setNewDescription] = useState(card.description);
 
   const allTags = useAppSelector(selectTags);
+
+  const openPreview = () => {
+    dispatch(setCurrent(card));
+    setOpenModal(true);
+  }
+  if (openModal) {
+    return <Redirect href="/preview" />
+  }
 
   return (
     <Box className={style.DBCard}
@@ -68,9 +81,9 @@ export default function DBCard({ card, editable }: {
       />}
       <Button
         type="submit"
-        fullWidth
+        fullWidth onClick={() => openPreview()}
         variant="contained" sx={{ mt: 3, mb: 2 }}
       >Открыть</Button>
-    </Box>
+    </Box >
   )
 }
