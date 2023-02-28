@@ -7,15 +7,21 @@ import style from "./DBCard.module.css";
 import DBCardInfo from "./DBCardInfo";
 import TagsList from "./TagsList";
 import DbFormControl from "../forms/DbFormControls";
+import TagSelect from "../Search/TagSelect";
+import { useAppSelector } from "../../store/hooks";
+import { selectTags } from "../../store/tagsSlice";
 
 
 export default function DBCard({ card, editable }: {
   editable: boolean, card: DBType
 }) {
   const [editMode, setEditMode] = useState(false);
+  const [tags, setTags] = useState<string[]>(card.tags);
 
   const [newTitle, setNewTitle] = useState(card.title);
   const [newDescription, setNewDescription] = useState(card.description);
+
+  const allTags = useAppSelector(selectTags);
 
   return (
     <Box className={style.DBCard}
@@ -27,7 +33,7 @@ export default function DBCard({ card, editable }: {
           required onChange={e => setNewTitle(e.target.value)}
         />
           <TextField fullWidth value={newDescription} label="Описание"
-            sx={{ marginTop: "2em" }}
+            sx={{ marginTop: "2em", marginBottom: "2em" }}
             required onChange={e => setNewDescription(e.target.value)}
             multiline maxRows={4}
           />
@@ -39,18 +45,20 @@ export default function DBCard({ card, editable }: {
           author={card.author || "unknown"}
         />
       }
-      <TagsList tags={card.tags} />
+      {(editMode) ?
+        <TagSelect values={tags} setValue={setTags} tags={allTags} />
+        : <TagsList tags={card.tags} />}
       {(editMode) && <DbFormControl id={card.id}
         newFile={{
           title: newTitle, description: newDescription,
-          tags: card.tags, id: card.id
+          tags: tags, id: card.id
         }}
       />}
       {(editable) &&
         <Button fullWidth variant="contained"
           color="primary" size="small" sx={{ marginTop: 4 }}
           onClick={() => setEditMode(!editMode)}
-        >{(editMode) ? "Отмена" : "Редактировать"}</Button>
+        >{(editMode) ? "Назад" : "Редактировать"}</Button>
       }
     </Box>
   )

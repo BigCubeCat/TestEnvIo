@@ -9,7 +9,6 @@ import { CreateFileInfo } from "../../utils/fileinfo";
 import { useCookies } from "react-cookie";
 import AddIcon from '@mui/icons-material/Add';
 import { selectTags } from "../../store/tagsSlice";
-import { addDb } from "../../store/dbSlice";
 
 /*
  * Component for create and update Database info
