@@ -66,6 +66,11 @@ export default function DBCard({ card, editable }: {
           tags: tags, id: card.id
         }}
       />}
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained" sx={{ mt: 3, mb: 2 }}
+      >Открыть</Button>
     </Box>
   )
 }
