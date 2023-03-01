@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import {
-  Box, Typography, TextField, Checkbox, Button, IconButton, InputAdornment
+  Box, Typography, TextField, Checkbox,
+  Button, IconButton, InputAdornment, Select, SelectChangeEvent,
+  MenuItem
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Tag } from "../../types/DBType";
+import { Tag, TDatabaseForm } from "../../types/DBType";
 import TagSelect from "../Search/TagSelect";
 import { CreateFileInfo } from "../../utils/fileinfo";
 import { useCookies } from "react-cookie";
 import AddIcon from '@mui/icons-material/Add';
 import { selectTags } from "../../store/tagsSlice";
+
+const getMySqlLink = (link: string) => {
+  if (link.startsWith("mysql:")) {
+    return link;
+  }
+  return "mysql:" + link;
+}
 
 /*
  * Component for create and update Database info
@@ -18,25 +27,34 @@ export default function DbForm() {
   const allTags = useAppSelector(selectTags);
   const [cookies] = useCookies(['token']);
 
+  const [format, setFormat] = React.useState('json');
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
   const [newTag, setNewTag] = useState<Tag>("");
   const [currentTags, setCurrentTags] = useState(allTags);
+
+  const handleSelectChange = (event: SelectChangeEvent) => {
+    setFormat(event.target.value as string);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let stringTags = tags.join(',');
     stringTags = (stringTags.length > 0) ? stringTags : "no";
-    const newDb = {
+    const newDb: TDatabaseForm = {
       id: 0,
-      filename: "" + data.get("filename") || "no",
+      db_uri: getMySqlLink("" + data.get("filename")) || "no",
       title: "" + data.get("title") || "no",
       description: "" + data.get("description") || "no",
+      export_to: format,
       is_public: isPublic,
-      tag: stringTags
+      tag: stringTags, author: { username: "" }
     }
-    CreateFileInfo(cookies.token, newDb);
+    CreateFileInfo(
+      cookies.token,
+      newDb
+    );
   }
   const AddTagButton = () => (
     <IconButton
@@ -58,7 +76,7 @@ export default function DbForm() {
       marginTop: 3,
     }}>
       <Typography variant="h4">Create new test database</Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, maxWidth: 500 }}>
         <TextField
           margin="normal" required fullWidth
           id="title" label="Title"
@@ -67,7 +85,7 @@ export default function DbForm() {
         />
         <TextField
           margin="normal" required fullWidth
-          id="filename" label="Filename"
+          id="filename" label="db uri"
           name="filename" autoComplete="filename"
           InputProps={{
             startAdornment: (
@@ -126,13 +144,21 @@ export default function DbForm() {
             }}
           />
         </Box>
-        <Button
-          variant="contained" component="label" color="info"
-        >
-          Upload File
-          <input type="file" hidden
-          />
-        </Button>
+        <Box sx={{ display: 'flex', justifyContent: "space-between", marginTop: 1 }}>
+          <Typography variant="h6" marginTop={'auto'}>
+            Формат экспорта
+          </Typography>
+          <Select
+            labelId="simple-select-label"
+            id="simple-select"
+            value={format}
+            label="Формат эксорта"
+            onChange={handleSelectChange}
+          >
+            <MenuItem value={"json"}>json</MenuItem>
+            <MenuItem value={"csv"}>csv</MenuItem>
+          </Select>
+        </Box>
         <Button
           type="submit"
           fullWidth color="success"

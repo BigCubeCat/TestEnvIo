@@ -3,19 +3,22 @@ export type Tag = string;
 export type DBType = {
   id: number,
   title: string;
+  db_uri: string;
   description: string;
   tags: Array<Tag>;
   author?: string;
+  status: string;
 }
 
 export type TDatabaseForm = {
   id: number,
   title: string;
-  filename: string;
+  db_uri: string;
   description: string;
   tag: string;
   is_public: boolean;
-  author: { username: string }
+  author: { username: string };
+  export_to: "json" | "csv" | "none"
 }
 
 

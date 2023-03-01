@@ -4,7 +4,7 @@ import { API_ADDRESS } from "./const";
 
 export async function CreateFileInfo(token: string, newDB: TDatabaseForm) {
   const { data } = await axios.post(
-    API_ADDRESS + "/file-infos/", newDB, {
+    API_ADDRESS + "/anonymizations/", newDB, {
     headers: {
       "Authorization": `Bearer ${token}`,
     }
@@ -25,7 +25,7 @@ export async function GetFileInfos(url: string, token: string) {
 
 export async function GetAllTags(token: string) {
   const { data } = await axios.get(
-    API_ADDRESS + "/file-infos/tags/", {
+    API_ADDRESS + "/anonymizations/tags/", {
     headers: {
       "Authorization": `Bearer ${token}`,
     }
@@ -41,7 +41,7 @@ export async function GetAllTags(token: string) {
 
 export async function DeleteFileInfo(id: number, token: string) {
   const { status } = await axios.delete(
-    API_ADDRESS + `/file-infos/${id}/`, {
+    API_ADDRESS + `/anonymizations/${id}/`, {
     headers: {
       "Authorization": `Bearer ${token}`,
     }
@@ -51,7 +51,7 @@ export async function DeleteFileInfo(id: number, token: string) {
 
 export async function EditFileInfo(id: number, newFile: DBType, token: string) {
   const { status } = await axios.put(
-    API_ADDRESS + `/file-infos/${id}/`, {
+    API_ADDRESS + `/anonymizations/${id}/`, {
     title: newFile.title, description: newFile.description,
     tag: newFile.tags.join(',')
   }, {

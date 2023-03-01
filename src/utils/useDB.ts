@@ -11,9 +11,9 @@ import { GetFileInfos } from "./fileinfo";
 export default function useDB(token: string, category: pageCategory) {
   let request: string[] = [];
   if (category == "My") {
-    request = [API_ADDRESS + "/file-infos/mine/", token];
+    request = [API_ADDRESS + "/anonymizations/mine/", token];
   } else {
-    request = [API_ADDRESS + "/file-infos/all/", token]
+    request = [API_ADDRESS + "/anonymizations/all/", token]
   }
   let { data, mutate, error } = useSWR(request,
     ([url, t]) => GetFileInfos(url, t)
