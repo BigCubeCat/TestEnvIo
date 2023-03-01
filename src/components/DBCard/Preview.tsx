@@ -45,7 +45,6 @@ const rows = [
 
 export default function Preview() {
   const card = useAppSelector(selectCurrentDb);
-  console.log(card.title)
   return (
     <>
       <AppBar />
@@ -54,6 +53,8 @@ export default function Preview() {
         marginTop: "5em", flexDirection: "column",
         alignItems: "center"
       }}>
+      <Box>
+      </Box>
         <Typography variant="h4" textAlign="center">
           {card.title}
         </Typography>
