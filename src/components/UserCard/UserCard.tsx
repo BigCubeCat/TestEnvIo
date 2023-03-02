@@ -62,10 +62,12 @@ export default function UserCard({ user, logout }: { user: TUserState, logout: F
           name="pasword"
           autoFocus
           value={password}
+          type="password"
           onChange={event => setPassword(event.target.value)}
           error={repeatPassword != password}
         />
         <TextField
+          type="password"
           margin="normal" required fullWidth
           id="repeat" label="Repeat password"
           name="filename" autoComplete="filename"

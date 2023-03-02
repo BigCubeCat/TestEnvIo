@@ -93,8 +93,7 @@ export default function DbForm() {
         />
         <Box sx={{ display: "flex" }}>
           <Select
-            size="small"
-            variant="standard"
+            size="small" variant="standard"
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
             value={sql}

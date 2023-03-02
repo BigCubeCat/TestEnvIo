@@ -42,6 +42,9 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
+/*
+ * TODO: Загрузка данных с сервера
+ */
 
 export default function Preview() {
   const card = useAppSelector(selectCurrentDb);
@@ -53,8 +56,8 @@ export default function Preview() {
         marginTop: "5em", flexDirection: "column",
         alignItems: "center"
       }}>
-      <Box>
-      </Box>
+        <Box>
+        </Box>
         <Typography variant="h4" textAlign="center">
           {card.title}
         </Typography>
