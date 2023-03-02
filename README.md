@@ -1,9 +1,5 @@
 # TestEnv.io
 
-## Посмотреть
-
-http://bigcubecat.ru
-
 ## Запуск
 ```bash
 docker-compose build
