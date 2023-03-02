@@ -12,7 +12,6 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectTags } from "../../store/tagsSlice";
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
-import Preview from "./Preview";
 import { setCurrent } from "../../store/dbSlice";
 import { Redirect } from "wouter";
 

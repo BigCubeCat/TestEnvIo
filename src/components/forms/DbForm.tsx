@@ -23,7 +23,6 @@ const getMySqlLink = (link: string) => {
  * Component for create and update Database info
  */
 export default function DbForm() {
-  const dispatch = useAppDispatch();
   const allTags = useAppSelector(selectTags);
   const [cookies] = useCookies(['token']);
 
@@ -67,6 +66,7 @@ export default function DbForm() {
     </IconButton>
   )
 
+  /*TODO: handle window resize*/
   return (
     <Box sx={{
       display: "flex",
@@ -74,9 +74,15 @@ export default function DbForm() {
       flexDirection: "column",
       alignItems: "center",
       marginTop: 3,
+      width: "100vw"
     }}>
-      <Typography variant="h4">Create new test database</Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, maxWidth: 500 }}>
+      <Typography variant="h4" sx={{
+        maxWidth: Math.min(500, window.innerWidth * 0.8),
+      }}>Create new test database</Typography>
+      <Box component="form" onSubmit={handleSubmit} noValidate
+        sx={{
+          maxWidth: Math.min(500, window.innerWidth * 0.8),
+        }}      >
         <TextField
           margin="normal" required fullWidth
           id="title" label="Title"
