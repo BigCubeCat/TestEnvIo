@@ -12,12 +12,8 @@ import { useCookies } from "react-cookie";
 import AddIcon from '@mui/icons-material/Add';
 import { selectTags } from "../../store/tagsSlice";
 
-const getMySqlLink = (link: string) => {
-  if (link.startsWith("mysql:") || link.startsWith("sqlite:////")) {
-    return link;
-  }
-  return "mysql:" + link;
-}
+const getSqlLink = (link: string, sql: string) =>
+  (sql == "") ? link : sql + link;
 
 /*
  * Component for create and update Database info
@@ -27,6 +23,7 @@ export default function DbForm() {
   const [cookies] = useCookies(['token']);
 
   const [format, setFormat] = React.useState('json');
+  const [sql, setSQL] = React.useState('mysql:/')
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
   const [newTag, setNewTag] = useState<Tag>("");
@@ -36,6 +33,11 @@ export default function DbForm() {
     setFormat(event.target.value as string);
   };
 
+  const handleSqlChange = (event: SelectChangeEvent) => {
+    setSQL(event.target.value as string);
+  };
+
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,7 +45,7 @@ export default function DbForm() {
     stringTags = (stringTags.length > 0) ? stringTags : "no";
     const newDb: TDatabaseForm = {
       id: 0,
-      db_uri: getMySqlLink("" + data.get("filename")) || "no",
+      db_uri: getSqlLink("" + data.get("filename"), sql) || "no",
       title: "" + data.get("title") || "no",
       description: "" + data.get("description") || "no",
       export_to: format,
@@ -77,11 +79,11 @@ export default function DbForm() {
       width: "100vw"
     }}>
       <Typography variant="h4" sx={{
-        maxWidth: Math.min(500, window.innerWidth * 0.8),
+        maxWidth: Math.min(600, window.innerWidth * 0.8),
       }}>Create new test database</Typography>
       <Box component="form" onSubmit={handleSubmit} noValidate
         sx={{
-          maxWidth: Math.min(500, window.innerWidth * 0.8),
+          maxWidth: Math.min(600, window.innerWidth * 0.8),
         }}      >
         <TextField
           margin="normal" required fullWidth
@@ -89,18 +91,33 @@ export default function DbForm() {
           name="title" autoComplete="new db"
           autoFocus
         />
-        <TextField
-          margin="normal" required fullWidth
-          id="filename" label="db uri"
-          name="filename" autoComplete="filename"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Typography variant="body2">mysql:</Typography>
-              </InputAdornment>
-            ),
-          }}
-        />
+        <Box sx={{ display: "flex" }}>
+          <Select
+            size="small"
+            variant="standard"
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={sql}
+            onChange={handleSqlChange}
+            sx={{ height: "4em", alignSelf: "center" }}
+          >
+            <MenuItem value={"mysql:/"}>mysql:/</MenuItem>
+            <MenuItem value={"sqlite:///"}>sqlite:///</MenuItem>
+            <MenuItem value={"postgresql://"}>postgresql://</MenuItem>
+          </Select>
+
+          <TextField
+            margin="normal" required fullWidth
+            id="filename" label="db uri"
+            name="filename" autoComplete="filename"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
         <TextField
           margin="normal" required fullWidth
           id="description" label="Description"
