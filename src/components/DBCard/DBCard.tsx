@@ -75,8 +75,8 @@ export default function DBCard({ card, editable }: {
         : <TagsList tags={card.tags} />}
       {(editMode) && <DbFormControl id={card.id}
         newFile={{
-          title: newTitle, description: newDescription,
-          tags: tags, id: card.id
+          title: newTitle, description: newDescription, author: "",
+          tags: tags, id: card.id, status: card.status, db_uri: card.db_uri
         }}
       />}
       <Button

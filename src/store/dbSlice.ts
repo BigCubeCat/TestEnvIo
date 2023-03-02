@@ -7,7 +7,8 @@ const initialState: { dbList: DBType[], currentDb: DBType } = {
   currentDb: {
     id: -1, title: "",
     description: "", tags: [],
-    author: "@root",
+    author: "@root", db_uri: "",
+    status: ""
   }
 }
 export const dbSlice = createSlice({
