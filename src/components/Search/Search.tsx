@@ -36,8 +36,9 @@ export default function Search({ canEdit, category }: {
       <Box sx={{
         display: "flex",
         justifyContent: 'start',
+        maxWidth: "100vw"
       }}>
-        <Box sx={{ display: "flex", padding: "1em" }}>
+        <Box sx={{ display: "flex", padding: "1em", flexWrap: "wrap" }}>
           <TextField
             sx={{ marginRight: 1, marginBottom: 1 }}
             id="search-input"

@@ -60,7 +60,7 @@ export default function DashBoard() {
       sx={{
         display: "flex",
         flexDirection: 'column',
-        padding: 10,
+        width: "max-content"
       }}>
       <TabsComponent category={category} setCategory={setCategory} />
       <Box sx={{ marginTop: "2em" }}>

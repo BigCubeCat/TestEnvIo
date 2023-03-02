@@ -14,8 +14,9 @@ export default function TabContent({ request, tags, editable }: {
   const cards = filterCards(dbList, request, tags);
   return (
     <Box sx={{
-      display: "flex", flexWrap: "wrap",
-      justifyContent: "start", marginTop: "3em"
+      width: "99vw",
+      display: "flex", flexWrap: "wrap", alignItems: "center",
+      justifyContent: "space-evenly", marginTop: "3em"
     }}>
       {cards.length > 0 ? cards.map(card => <DBCard
         card={card} editable={editable}

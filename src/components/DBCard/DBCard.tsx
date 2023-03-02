@@ -43,7 +43,7 @@ export default function DBCard({ card, editable }: {
       sx={{
         display: "flex", justifyContent: 'space-between',
         flexDirection: "column", position: "relative",
-        minWidth: 300
+        minWidth: 200
       }}>
       {(editable) &&
         <IconButton size="small" sx={{ position: "absolute", top: 10, right: 10 }}
