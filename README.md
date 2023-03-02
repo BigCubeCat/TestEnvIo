@@ -18,6 +18,13 @@ cd frontend
 docker build -t web:0.1.0 .
 docker run --rm --name web-1 -p 80:80 -d web:0.1.0
 ```
+
+Если все еще проблемы то:
+```bash
+cd frontend
+yarn
+yarn run dev
+```
 ### Создайте администратора, который сможет создать пользователей
 для этого сделайте POST-запрос на 
 

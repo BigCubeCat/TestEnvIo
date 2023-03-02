@@ -21,7 +21,8 @@ const DBCardInfo = ({ card }: { card: DBType }) => {
         {card.description}
       </Typography>
       {(card.status != "Ok.") &&
-        <Alert variant="outlined" severity="error"
+        <Alert variant="outlined"
+          severity={(card.status == "Pending...") ? "warning" : "error"}
           sx={{ maxWidth: 300, marginTop: 3, marginBottom: 3 }}
         >
           {card.status}
