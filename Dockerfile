@@ -1,20 +1,11 @@
-FROM node:latest AS builder
-
-WORKDIR /app
-
-COPY package.json package.json
-
-RUN yarn install
-
-COPY . .
-
+FROM node:19.7-alpine3.16 as build
+WORKDIR /usr/app
+COPY . /usr/app
+RUN yarn install --frozen-lockfile
 RUN yarn run build
 
-FROM nginx:alpine
+FROM nginx:1.23.1-alpine
+EXPOSE 80
+COPY ./docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/app/dist /usr/share/nginx/html
 
-WORKDIR /usr/share/nginx/html
-
-COPY --from=builder /app/dist .
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
-CMD ["nginx", "-g", "daemon off;"]
