@@ -44,7 +44,7 @@ export default function DbForm() {
     let stringTags = tags.join(',');
     stringTags = (stringTags.length > 0) ? stringTags : "no";
     const newDb: TDatabaseForm = {
-      id: 0,
+      id: 0, status: "",
       db_uri: getSqlLink("" + data.get("filename"), sql) || "no",
       title: "" + data.get("title") || "no",
       description: "" + data.get("description") || "no",
