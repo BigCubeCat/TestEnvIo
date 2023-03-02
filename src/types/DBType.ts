@@ -18,7 +18,8 @@ export type TDatabaseForm = {
   tag: string;
   is_public: boolean;
   author: { username: string };
-  export_to: string
+  export_to: string,
+  status: string
 }
 
 
@@ -29,5 +30,6 @@ export function TDatabaseFormToDBType(db: TDatabaseForm) {
     tags: db.tag.split(','),
     author: db.author.username,
     db_uri: db.db_uri,
+    status: db.status
   }
 }

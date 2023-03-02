@@ -5,8 +5,7 @@ import {
 import { DBType } from "../../types/DBType";
 
 
-const DBCardInfo = React.memo(({ card }: { card: DBType }) => {
-  console.log(card)
+const DBCardInfo = ({ card }: { card: DBType }) => {
   return (
     <>
       <Typography variant="h5" component="div">
@@ -21,13 +20,15 @@ const DBCardInfo = React.memo(({ card }: { card: DBType }) => {
       <Typography variant="body2" sx={{ marginTop: "1em" }}>
         {card.description}
       </Typography>
-      {(card.status) &&
-        <Alert security="error">
+      {(card.status != "Ok.") &&
+        <Alert variant="outlined" severity="error"
+          sx={{ maxWidth: 300, marginTop: 3, marginBottom: 3 }}
+        >
           {card.status}
         </Alert>
       }
     </>
   )
-})
+}
 
 export default DBCardInfo;
