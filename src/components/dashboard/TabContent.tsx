@@ -15,7 +15,7 @@ export default function TabContent({ request, tags, editable }: {
   return (
     <Box sx={{
       display: "flex", flexWrap: "wrap",
-      justifyContent: "start"
+      justifyContent: "start", marginTop: "3em"
     }}>
       {cards.length > 0 ? cards.map(card => <DBCard
         card={card} editable={editable}

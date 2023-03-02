@@ -41,8 +41,9 @@ export default function DBCard({ card, editable }: {
   return (
     <Box className={style.DBCard}
       sx={{
-        display: "flex", justifyContent: 'space-between', flexDirection: "column",
-        position: "relative"
+        display: "flex", justifyContent: 'space-between',
+        flexDirection: "column", position: "relative",
+        minWidth: 300
       }}>
       {(editable) &&
         <IconButton size="small" sx={{ position: "absolute", top: 10, right: 10 }}
@@ -64,11 +65,7 @@ export default function DBCard({ card, editable }: {
           />
 
         </Box>
-        : <DBCardInfo
-          title={card.title}
-          description={card.description}
-          author={card.author || "unknown"}
-        />
+        : <DBCardInfo card={card} />
       }
       {(editMode) ?
         <TagSelect values={tags} setValue={setTags} tags={allTags} />

@@ -13,7 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { selectTags } from "../../store/tagsSlice";
 
 const getMySqlLink = (link: string) => {
-  if (link.startsWith("mysql:")) {
+  if (link.startsWith("mysql:") || link.startsWith("sqlite:////")) {
     return link;
   }
   return "mysql:" + link;

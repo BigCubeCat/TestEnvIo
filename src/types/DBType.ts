@@ -28,5 +28,6 @@ export function TDatabaseFormToDBType(db: TDatabaseForm) {
     description: db.description,
     tags: db.tag.split(','),
     author: db.author.username,
+    db_uri: db.db_uri,
   }
 }
