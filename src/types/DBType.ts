@@ -18,7 +18,7 @@ export type TDatabaseForm = {
   tag: string;
   is_public: boolean;
   author: { username: string };
-  export_to: "json" | "csv" | "none"
+  export_to: string
 }
 
 
